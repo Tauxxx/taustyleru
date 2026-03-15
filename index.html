@@ -1,1245 +1,1351 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHP Backend Developer — Senior Fullstack Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #080b10;
-    --bg2: #0d1117;
-    --bg3: #111820;
-    --surface: #131b24;
-    --border: #1e2d3d;
-    --border-glow: rgba(0,255,180,0.18);
-    --neon: #00ffb4;
-    --neon2: #00c9ff;
-    --neon3: #7b61ff;
-    --accent: #ff4d6a;
-    --text: #c9d6df;
-    --text-muted: #566878;
-    --text-bright: #eaf3fa;
-    --mono: 'Space Mono', monospace;
-    --sans: 'Syne', sans-serif;
-    --body: 'Inter', sans-serif;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--body);
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* Grain overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.35;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 2.5rem;
-    background: rgba(8,11,16,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    color: var(--neon);
-    letter-spacing: 0.05em;
-  }
-
-  .nav-logo span { color: var(--text-muted); }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--neon); }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 8rem 2.5rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(0,255,180,0.04) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 20% 70%, rgba(0,201,255,0.03) 0%, transparent 70%),
-      radial-gradient(ellipse 30% 30% at 85% 80%, rgba(123,97,255,0.05) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,255,180,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,180,0.025) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
-    pointer-events: none;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--neon);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s 0.2s forwards;
-  }
-
-  .hero-tag::before {
-    content: '';
-    width: 24px; height: 1px;
-    background: var(--neon);
-  }
-
-  .hero-title {
-    font-family: var(--sans);
-    font-size: clamp(2.8rem, 6vw, 5.5rem);
-    font-weight: 800;
-    line-height: 1.05;
-    color: var(--text-bright);
-    margin-bottom: 0.3rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.35s forwards;
-  }
-
-  .hero-title .accent {
-    background: linear-gradient(90deg, var(--neon), var(--neon2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-subtitle {
-    font-family: var(--sans);
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.5s forwards;
-  }
-
-  .hero-desc {
-    font-size: 1rem;
-    color: var(--text);
-    max-width: 600px;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.65s forwards;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 3rem;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.8s forwards;
-  }
-
-  .stat-num {
-    font-family: var(--mono);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--neon);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 0.3rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.95s forwards;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 2rem;
-    background: var(--neon);
-    color: #080b10;
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-  }
-
-  .btn-primary:hover {
-    background: var(--neon2);
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(0,255,180,0.3);
-  }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 2rem;
-    background: transparent;
-    color: var(--text-bright);
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.06em;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: all 0.2s;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--neon);
-    color: var(--neon);
-    box-shadow: inset 0 0 20px rgba(0,255,180,0.05);
-  }
-
-  /* SECTIONS */
-  section {
-    position: relative;
-    z-index: 1;
-    padding: 6rem 2.5rem;
-  }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--neon);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    max-width: 60px;
-    height: 1px;
-    background: var(--neon);
-    opacity: 0.5;
-  }
-
-  .section-title {
-    font-family: var(--sans);
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    font-weight: 800;
-    color: var(--text-bright);
-    margin-bottom: 3.5rem;
-    line-height: 1.15;
-  }
-
-  /* WHO IS THIS FOR */
-  .clients-section {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .clients-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .client-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-    cursor: default;
-    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
-  }
-
-  .client-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px;
-    height: 0;
-    background: var(--card-accent, var(--neon));
-    transition: height 0.4s;
-  }
-
-  .client-card:hover {
-    border-color: var(--border-glow);
-    transform: translateY(-4px);
-  }
-
-  .client-card:hover::before { height: 100%; }
-
-  .client-icon {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .client-type {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--card-accent, var(--neon));
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .client-title {
-    font-family: var(--sans);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-bright);
-    margin-bottom: 0.75rem;
-  }
-
-  .client-desc {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  .client-needs {
-    margin-top: 1.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .need-tag {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--card-accent, var(--neon));
-    border: 1px solid currentColor;
-    padding: 0.2rem 0.55rem;
-    opacity: 0.7;
-    letter-spacing: 0.05em;
-  }
-
-  /* STACK */
-  .stack-section { background: var(--bg); }
-
-  .stack-groups {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
-
-  .stack-group-title {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .stack-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-
-  .stack-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--text);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 0.45rem 0.9rem;
-    letter-spacing: 0.03em;
-    transition: all 0.2s;
-    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
-  }
-
-  .stack-tag:hover {
-    border-color: var(--tag-color, var(--neon));
-    color: var(--tag-color, var(--neon));
-    background: rgba(0,255,180,0.04);
-    transform: translateY(-2px);
-  }
-
-  .stack-tag .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--tag-color, var(--neon));
-    flex-shrink: 0;
-  }
-
-  /* TIMELINE */
-  .timeline-section {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--neon), var(--neon2), var(--neon3), transparent);
-    opacity: 0.4;
-  }
-
-  .timeline-item {
-    position: relative;
-    padding: 0 0 3.5rem 2rem;
-  }
-
-  .timeline-item:last-child { padding-bottom: 0; }
-
-  .timeline-dot {
-    position: absolute;
-    left: -2.35rem;
-    top: 0.3rem;
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--neon);
-    box-shadow: 0 0 12px var(--neon);
-    border: 2px solid var(--bg2);
-  }
-
-  .timeline-dot.dim {
-    background: var(--text-muted);
-    box-shadow: none;
-  }
-
-  .timeline-period {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--neon);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.4rem;
-  }
-
-  .timeline-company {
-    font-family: var(--sans);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-bright);
-    margin-bottom: 0.2rem;
-  }
-
-  .timeline-role {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-  }
-
-  .timeline-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .timeline-bullets li {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    padding-left: 1rem;
-    position: relative;
-    line-height: 1.6;
-  }
-
-  .timeline-bullets li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: var(--neon);
-    font-size: 0.7rem;
-    top: 0.15rem;
-  }
-
-  .timeline-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 1rem;
-  }
-
-  .tl-tag {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    color: var(--neon2);
-    border: 1px solid rgba(0,201,255,0.25);
-    padding: 0.15rem 0.5rem;
-    letter-spacing: 0.05em;
-  }
-
-  /* PROJECTS */
-  .projects-section { background: var(--bg); }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
-    opacity: 0.6;
-  }
-
-  .project-card::after {
-    content: 'В РАЗРАБОТКЕ';
-    position: absolute;
-    top: 1.2rem; right: -1.8rem;
-    background: var(--neon3);
-    color: white;
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 0.1em;
-    padding: 0.25rem 2.2rem;
-    transform: rotate(45deg);
-  }
-
-  .project-num {
-    font-family: var(--mono);
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-
-  .project-title {
-    font-family: var(--sans);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--text-bright);
-    margin-bottom: 0.5rem;
-  }
-
-  .project-desc {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  /* CONTACT */
-  .contact-section {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-  }
-
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .contact-text p {
-    color: var(--text);
-    line-height: 1.8;
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: var(--text);
-    transition: all 0.2s;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-  }
-
-  .contact-link:hover {
-    border-color: var(--neon);
-    color: var(--neon);
-    background: rgba(0,255,180,0.04);
-  }
-
-  .contact-link-icon {
-    font-size: 1.2rem;
-    width: 2rem;
-    text-align: center;
-  }
-
-  .contact-link-text {
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.04em;
-  }
-
-  .contact-link-label {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    margin-top: 0.1rem;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .form-label {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .form-input, .form-textarea {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-bright);
-    font-family: var(--body);
-    font-size: 0.9rem;
-    padding: 0.8rem 1rem;
-    outline: none;
-    transition: border-color 0.2s;
-    resize: vertical;
-    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
-  }
-
-  .form-input:focus, .form-textarea:focus {
-    border-color: var(--neon);
-    box-shadow: 0 0 0 1px rgba(0,255,180,0.1);
-  }
-
-  .form-textarea { min-height: 120px; }
-
-  /* FOOTER */
-  footer {
-    position: relative;
-    z-index: 1;
-    padding: 2rem 2.5rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .footer-text {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-  }
-
-  .footer-status {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--neon);
-  }
-
-  .status-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--neon);
-    animation: pulse 2s infinite;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--neon); }
-    50% { opacity: 0.4; box-shadow: none; }
-  }
-
-  /* SCROLLED REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.25rem; }
-    .nav-links { display: none; }
-    .hero { padding: 7rem 1.25rem 3rem; }
-    section { padding: 4rem 1.25rem; }
-    .hero-stats { gap: 2rem; }
-    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    footer { padding: 1.5rem 1.25rem; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHP Backend Developer — Senior Fullstack Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080b10;
+      --bg2: #0d1117;
+      --bg3: #111820;
+      --surface: #131b24;
+      --border: #1e2d3d;
+      --border-glow: rgba(0, 255, 180, 0.18);
+      --neon: #00ffb4;
+      --neon2: #00c9ff;
+      --neon3: #7b61ff;
+      --accent: #ff4d6a;
+      --text: #c9d6df;
+      --text-muted: #566878;
+      --text-bright: #eaf3fa;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+      --body: 'Inter', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(8, 11, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--neon);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-logo span {
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(0, 255, 180, 0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 70%, rgba(0, 201, 255, 0.03) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 30% at 85% 80%, rgba(123, 97, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 180, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 180, 0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--neon);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--neon);
+    }
+
+    .hero-title {
+      font-family: var(--sans);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--text-bright);
+      margin-bottom: 0.3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.35s forwards;
+    }
+
+    .hero-title .accent {
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: var(--sans);
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s forwards;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text);
+      max-width: 600px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.65s forwards;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.8s forwards;
+    }
+
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--neon);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.3rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.95s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--neon);
+      color: #080b10;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+
+    .btn-primary:hover {
+      background: var(--neon2);
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0, 255, 180, 0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--text-bright);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--neon);
+      color: var(--neon);
+      box-shadow: inset 0 0 20px rgba(0, 255, 180, 0.05);
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2.5rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--neon);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--neon);
+      opacity: 0.5;
+    }
+
+    .section-title {
+      font-family: var(--sans);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text-bright);
+      margin-bottom: 3.5rem;
+      line-height: 1.15;
+    }
+
+    /* WHO IS THIS FOR */
+    .clients-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .client-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    }
+
+    .client-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--card-accent, var(--neon));
+      transition: height 0.4s;
+    }
+
+    .client-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+    }
+
+    .client-card:hover::before {
+      height: 100%;
+    }
+
+    .client-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .client-type {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--card-accent, var(--neon));
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .client-title {
+      font-family: var(--sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 0.75rem;
+    }
+
+    .client-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .client-needs {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .need-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--card-accent, var(--neon));
+      border: 1px solid currentColor;
+      padding: 0.2rem 0.55rem;
+      opacity: 0.7;
+      letter-spacing: 0.05em;
+    }
+
+    /* STACK */
+    .stack-section {
+      background: var(--bg);
+    }
+
+    .stack-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .stack-group-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stack-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .stack-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.9rem;
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+    }
+
+    .stack-tag:hover {
+      border-color: var(--tag-color, var(--neon));
+      color: var(--tag-color, var(--neon));
+      background: rgba(0, 255, 180, 0.04);
+      transform: translateY(-2px);
+    }
+
+    .stack-tag .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--tag-color, var(--neon));
+      flex-shrink: 0;
+    }
+
+    /* TIMELINE */
+    .timeline-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--neon), var(--neon2), var(--neon3), transparent);
+      opacity: 0.4;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 3.5rem 2rem;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.35rem;
+      top: 0.3rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--neon);
+      box-shadow: 0 0 12px var(--neon);
+      border: 2px solid var(--bg2);
+    }
+
+    .timeline-dot.dim {
+      background: var(--text-muted);
+      box-shadow: none;
+    }
+
+    .timeline-period {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--neon);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-company {
+      font-family: var(--sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-role {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .timeline-bullets li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .timeline-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--neon);
+      font-size: 0.7rem;
+      top: 0.15rem;
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tl-tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--neon2);
+      border: 1px solid rgba(0, 201, 255, 0.25);
+      padding: 0.15rem 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* PROJECTS */
+    .projects-section {
+      background: var(--bg);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+      opacity: 0.6;
+    }
+
+    .project-card::after {
+      content: 'В РАЗРАБОТКЕ';
+      position: absolute;
+      top: 1.2rem;
+      right: -1.8rem;
+      background: var(--neon3);
+      color: white;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 2.2rem;
+      transform: rotate(45deg);
+    }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-text p {
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+
+    .contact-link:hover {
+      border-color: var(--neon);
+      color: var(--neon);
+      background: rgba(0, 255, 180, 0.04);
+    }
+
+    .contact-link-icon {
+      font-size: 1.2rem;
+      width: 2rem;
+      text-align: center;
+    }
+
+    .contact-link-text {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-link-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .form-input,
+    .form-textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-bright);
+      font-family: var(--body);
+      font-size: 0.9rem;
+      padding: 0.8rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 0 1px rgba(0, 255, 180, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-text {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--neon);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--neon);
+      animation: pulse 2s infinite;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 6px var(--neon);
+      }
+
+      50% {
+        opacity: 0.4;
+        box-shadow: none;
+      }
+    }
+
+    /* SCROLLED REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.25rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 7rem 1.25rem 3rem;
+      }
+
+      section {
+        padding: 4rem 1.25rem;
+      }
+
+      .hero-stats {
+        gap: 2rem;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      footer {
+        padding: 1.5rem 1.25rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo"><span>~/</span>tau.dev</div>
-  <ul class="nav-links">
-    <li><a href="#clients">Заказчикам</a></li>
-    <li><a href="#stack">Стек</a></li>
-    <li><a href="#experience">Опыт</a></li>
-    <li><a href="#projects">Проекты</a></li>
-    <li><a href="#contact">Контакт</a></li>
-  </ul>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo"><span>~/</span>tau.dev</div>
+    <ul class="nav-links">
+      <li><a href="#clients">Заказчикам</a></li>
+      <li><a href="#stack">Стек</a></li>
+      <li><a href="#experience">Опыт</a></li>
+      <li><a href="#projects">Проекты</a></li>
+      <li><a href="#contact">Контакт</a></li>
+    </ul>
+  </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-tag">Senior PHP Backend Developer</div>
-    <h1 class="hero-title">
-      Архитектура.<br>
-      <span class="accent">Интеграции.</span><br>
-      Производительность.
-    </h1>
-    <p class="hero-subtitle">20+ лет в разработке — от стартапов до high-load платформ</p>
-    <p class="hero-desc">
-      Проектирую и строю серверную часть под нагрузку. Работаю с Laravel, Bitrix, очередями, 
-      кэшем и сложными API-интеграциями. Делаю системы, которые не ломаются когда нужны.
-    </p>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">20+</div>
-        <div class="stat-label">лет опыта</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Senior PHP Backend Developer</div>
+      <h1 class="hero-title">
+        Архитектура.<br>
+        <span class="accent">Интеграции.</span><br>
+        Производительность.
+      </h1>
+      <p class="hero-subtitle">20+ лет в разработке — от стартапов до high-load платформ</p>
+      <p class="hero-desc">
+        Проектирую и строю серверную часть под нагрузку. Работаю с Laravel, Bitrix, очередями,
+        кэшем и сложными API-интеграциями. Делаю системы, которые не ломаются когда нужны.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">20+</div>
+          <div class="stat-label">лет опыта</div>
+        </div>
+        <div>
+          <div class="stat-num">1M+</div>
+          <div class="stat-label">пользователей/мес</div>
+        </div>
+        <div>
+          <div class="stat-num">10K</div>
+          <div class="stat-label">конкурентных сессий</div>
+        </div>
       </div>
-      <div>
-        <div class="stat-num">1M+</div>
-        <div class="stat-label">пользователей/мес</div>
-      </div>
-      <div>
-        <div class="stat-num">10K</div>
-        <div class="stat-label">конкурентных сессий</div>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">→ Обсудить задачу</a>
+        <a href="#experience" class="btn-secondary">Посмотреть опыт</a>
       </div>
     </div>
-    <div class="hero-cta">
-      <a href="#contact" class="btn-primary">→ Обсудить задачу</a>
-      <a href="#experience" class="btn-secondary">Посмотреть опыт</a>
+  </section>
+
+  <!-- WHO IS THIS FOR -->
+  <section class="clients-section" id="clients">
+    <div class="container">
+      <div class="section-label reveal">Кому подхожу</div>
+      <h2 class="section-title reveal">Типичные заказчики</h2>
+      <div class="clients-grid">
+
+        <div class="client-card reveal" style="--card-accent: #00ffb4;">
+          <div class="client-icon">🏥</div>
+          <div class="client-type">Медицина / Beauty / Wellness</div>
+          <div class="client-title">Клиники и сети салонов</div>
+          <div class="client-desc">
+            Нужна интеграция между CRM, системой записи и сайтом? Делал именно это —
+            YClients + Bitrix24 на платформе с 1–2 млн пользователей в месяц. Без потери данных и без даунтайма.
+          </div>
+          <div class="client-needs">
+            <span class="need-tag">YClients API</span>
+            <span class="need-tag">Bitrix24</span>
+            <span class="need-tag">High-load</span>
+            <span class="need-tag">Онлайн-запись</span>
+          </div>
+        </div>
+
+        <div class="client-card reveal" style="--card-accent: #00c9ff;">
+          <div class="client-icon">🛒</div>
+          <div class="client-type">E-commerce / Ритейл</div>
+          <div class="client-title">Интернет-магазины и сети</div>
+          <div class="client-desc">
+            Строил платформы, которые выдерживают «Чёрную пятницу». Интеграции с 1С, RetailCRM, СДЭК,
+            платёжными системами. Оптимизация под нагрузку — с 300 мс до 50–80 мс ответа API.
+          </div>
+          <div class="client-needs">
+            <span class="need-tag">1С-Битрикс</span>
+            <span class="need-tag">Laravel</span>
+            <span class="need-tag">RetailCRM</span>
+            <span class="need-tag">СДЭК / 5Post</span>
+          </div>
+        </div>
+
+        <div class="client-card reveal" style="--card-accent: #7b61ff;">
+          <div class="client-icon">⚙️</div>
+          <div class="client-type">B2B / Корпоративный сектор</div>
+          <div class="client-title">Компании с legacy и интеграциями</div>
+          <div class="client-desc">
+            Есть старый монолит, который нужно расширить, не сломав? Или требуется связать несколько
+            систем: ERP, CRM, сайт? Работаю с MS Axapta, MS SQL, разными корпоративными API.
+          </div>
+          <div class="client-needs">
+            <span class="need-tag">Legacy refactor</span>
+            <span class="need-tag">REST API</span>
+            <span class="need-tag">MS SQL / Axapta</span>
+            <span class="need-tag">Микросервисы</span>
+          </div>
+        </div>
+
+        <div class="client-card reveal" style="--card-accent: #ff4d6a;">
+          <div class="client-icon">🚀</div>
+          <div class="client-type">Продукты / Стартапы</div>
+          <div class="client-title">Команды, которым нужен опытный backend</div>
+          <div class="client-desc">
+            Нет смысла держать в штате дорогого сеньора ради одного проекта. Подключаюсь,
+            проектирую архитектуру, выстраиваю процессы, передаю команде — и всё работает.
+          </div>
+          <div class="client-needs">
+            <span class="need-tag">Архитектура с нуля</span>
+            <span class="need-tag">Laravel</span>
+            <span class="need-tag">Code Review</span>
+            <span class="need-tag">Менторинг</span>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- WHO IS THIS FOR -->
-<section class="clients-section" id="clients">
-  <div class="container">
-    <div class="section-label reveal">Кому подхожу</div>
-    <h2 class="section-title reveal">Типичные заказчики</h2>
-    <div class="clients-grid">
+  <!-- STACK -->
+  <section class="stack-section" id="stack">
+    <div class="container">
+      <div class="section-label reveal">Технологии</div>
+      <h2 class="section-title reveal">Стек</h2>
+      <div class="stack-groups">
 
-      <div class="client-card reveal" style="--card-accent: #00ffb4;">
-        <div class="client-icon">🏥</div>
-        <div class="client-type">Медицина / Beauty / Wellness</div>
-        <div class="client-title">Клиники и сети салонов</div>
-        <div class="client-desc">
-          Нужна интеграция между CRM, системой записи и сайтом? Делал именно это — 
-          YClients + Bitrix24 на платформе с 1–2 млн пользователей в месяц. Без потери данных и без даунтайма.
+        <div class="reveal">
+          <div class="stack-group-title">Backend</div>
+          <div class="stack-tags">
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>PHP 8</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel Octane</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel Horizon</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel Reverb</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>REST API</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Event-driven</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Queues / Jobs</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>1С-Битрикс D7</span>
+            <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>WebSockets</span>
+          </div>
         </div>
-        <div class="client-needs">
-          <span class="need-tag">YClients API</span>
-          <span class="need-tag">Bitrix24</span>
-          <span class="need-tag">High-load</span>
-          <span class="need-tag">Онлайн-запись</span>
+
+        <div class="reveal">
+          <div class="stack-group-title">Базы данных и кэш</div>
+          <div class="stack-tags">
+            <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>MySQL / MariaDB</span>
+            <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>PostgreSQL</span>
+            <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>Redis</span>
+            <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>MS SQL</span>
+            <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>Query Optimization</span>
+            <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>Indexing</span>
+            <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>RabbitMQ</span>
+          </div>
         </div>
+
+        <div class="reveal">
+          <div class="stack-group-title">Фронтенд</div>
+          <div class="stack-tags">
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Vue 3</span>
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Nuxt 3</span>
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>TypeScript</span>
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Pinia</span>
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Composition API</span>
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Vite</span>
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>HTML5 / CSS3</span>
+            <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Core Web Vitals</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="stack-group-title">Инфраструктура и DevOps</div>
+          <div class="stack-tags">
+            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Linux (Debian/Ubuntu)</span>
+            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Nginx</span>
+            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>PHP-FPM</span>
+            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Docker</span>
+            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Git / CI/CD</span>
+            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Мониторинг</span>
+            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Profiling</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="stack-group-title">Интеграции</div>
+          <div class="stack-tags">
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Bitrix24</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>YClients</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>1С</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>RetailCRM</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Mindbox</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>СДЭК / 5Post</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Робокасса</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>MS Axapta</span>
+            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span">Google Analytics</span>
+              <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Яндекс.Метрика</span>
+          </div>
+        </div>
+
       </div>
-
-      <div class="client-card reveal" style="--card-accent: #00c9ff;">
-        <div class="client-icon">🛒</div>
-        <div class="client-type">E-commerce / Ритейл</div>
-        <div class="client-title">Интернет-магазины и сети</div>
-        <div class="client-desc">
-          Строил платформы, которые выдерживают «Чёрную пятницу». Интеграции с 1С, RetailCRM, СДЭК, 
-          платёжными системами. Оптимизация под нагрузку — с 300 мс до 50–80 мс ответа API.
-        </div>
-        <div class="client-needs">
-          <span class="need-tag">1С-Битрикс</span>
-          <span class="need-tag">Laravel</span>
-          <span class="need-tag">RetailCRM</span>
-          <span class="need-tag">СДЭК / 5Post</span>
-        </div>
-      </div>
-
-      <div class="client-card reveal" style="--card-accent: #7b61ff;">
-        <div class="client-icon">⚙️</div>
-        <div class="client-type">B2B / Корпоративный сектор</div>
-        <div class="client-title">Компании с legacy и интеграциями</div>
-        <div class="client-desc">
-          Есть старый монолит, который нужно расширить, не сломав? Или требуется связать несколько 
-          систем: ERP, CRM, сайт? Работаю с MS Axapta, MS SQL, разными корпоративными API.
-        </div>
-        <div class="client-needs">
-          <span class="need-tag">Legacy refactor</span>
-          <span class="need-tag">REST API</span>
-          <span class="need-tag">MS SQL / Axapta</span>
-          <span class="need-tag">Микросервисы</span>
-        </div>
-      </div>
-
-      <div class="client-card reveal" style="--card-accent: #ff4d6a;">
-        <div class="client-icon">🚀</div>
-        <div class="client-type">Продукты / Стартапы</div>
-        <div class="client-title">Команды, которым нужен опытный backend</div>
-        <div class="client-desc">
-          Нет смысла держать в штате дорогого сеньора ради одного проекта. Подключаюсь, 
-          проектирую архитектуру, выстраиваю процессы, передаю команде — и всё работает.
-        </div>
-        <div class="client-needs">
-          <span class="need-tag">Архитектура с нуля</span>
-          <span class="need-tag">Laravel</span>
-          <span class="need-tag">Code Review</span>
-          <span class="need-tag">Менторинг</span>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- STACK -->
-<section class="stack-section" id="stack">
-  <div class="container">
-    <div class="section-label reveal">Технологии</div>
-    <h2 class="section-title reveal">Стек</h2>
-    <div class="stack-groups">
+  <!-- TIMELINE -->
+  <section class="timeline-section" id="experience">
+    <div class="container">
+      <div class="section-label reveal">Карьера</div>
+      <h2 class="section-title reveal">Опыт работы</h2>
+      <div class="timeline">
 
-      <div class="reveal">
-        <div class="stack-group-title">Backend</div>
-        <div class="stack-tags">
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>PHP 8</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel Octane</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel Horizon</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel Reverb</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>REST API</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Event-driven</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Queues / Jobs</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>1С-Битрикс D7</span>
-          <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>WebSockets</span>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Январь 2025 — настоящее время · 1 год 3 мес</div>
+          <div class="timeline-company">Клиника Превентивной Медицины</div>
+          <div class="timeline-role">PHP Fullstack Senior Developer</div>
+          <ul class="timeline-bullets">
+            <li>Веб-платформа «под ключ» — до 10 000 одновременных пользователей, 1–2 млн/мес</li>
+            <li>Интеграционная платформа YClients ↔ Bitrix24: синхронизация заказов и клиентов</li>
+            <li>Nuxt 3 + Vue 3 + TypeScript фронтенд, Laravel + Redis-очереди бэкенд</li>
+            <li>Декомпозиция монолита в сервис-ориентированные модули</li>
+            <li>Мониторинг, логирование, анализ инцидентов и превентивные улучшения</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tl-tag">Laravel</span>
+            <span class="tl-tag">Nuxt 3</span>
+            <span class="tl-tag">Redis</span>
+            <span class="tl-tag">YClients</span>
+            <span class="tl-tag">Bitrix24</span>
+            <span class="tl-tag">High-load</span>
+          </div>
         </div>
-      </div>
 
-      <div class="reveal">
-        <div class="stack-group-title">Базы данных и кэш</div>
-        <div class="stack-tags">
-          <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>MySQL / MariaDB</span>
-          <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>PostgreSQL</span>
-          <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>Redis</span>
-          <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>MS SQL</span>
-          <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>Query Optimization</span>
-          <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>Indexing</span>
-          <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>RabbitMQ</span>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Октябрь 2021 — Декабрь 2024 · 3 года 3 мес</div>
+          <div class="timeline-company">Единая Европа — Холдинг</div>
+          <div class="timeline-role">Backend Engineer Laravel / Bitrix</div>
+          <ul class="timeline-bullets">
+            <li>Laravel Octane (Swoole): время ответа API снижено с ~300 мс до 50–80 мс при пиках</li>
+            <li>Laravel Reverb + WebSockets: аналитика реального времени, 2000 одновременных подключений</li>
+            <li>Интеграции: Mindbox, RetailCRM, СДЭК, 5Post, Робокасса, MS SQL, Microsoft Axapta</li>
+            <li>Event-driven архитектура на Laravel Events + Listeners + Redis/Horizon</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tl-tag">Laravel Octane</span>
+            <span class="tl-tag">Swoole</span>
+            <span class="tl-tag">WebSockets</span>
+            <span class="tl-tag">1С-Битрикс</span>
+            <span class="tl-tag">Vue.js</span>
+          </div>
         </div>
-      </div>
 
-      <div class="reveal">
-        <div class="stack-group-title">Фронтенд</div>
-        <div class="stack-tags">
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Vue 3</span>
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Nuxt 3</span>
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>TypeScript</span>
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Pinia</span>
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Composition API</span>
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Vite</span>
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>HTML5 / CSS3</span>
-          <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Core Web Vitals</span>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot dim"></div>
+          <div class="timeline-period">Декабрь 2018 — Июнь 2021 · 2 года 7 мес</div>
+          <div class="timeline-company">МДМ Комплект</div>
+          <div class="timeline-role">Ведущий веб-разработчик</div>
+          <ul class="timeline-bullets">
+            <li>Полный цикл: архитектура, разработка, code review, production</li>
+            <li>Кастомные модули Битрикс, сложные каталоги, личные кабинеты</li>
+            <li>REST API, интеграции с платёжными системами и службами доставки</li>
+            <li>Laravel микросервисы + Vue.js фронтенд + React Native мобильный клиент</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tl-tag">1С-Битрикс</span>
+            <span class="tl-tag">Laravel</span>
+            <span class="tl-tag">Vue.js</span>
+            <span class="tl-tag">React Native</span>
+          </div>
         </div>
-      </div>
 
-      <div class="reveal">
-        <div class="stack-group-title">Инфраструктура и DevOps</div>
-        <div class="stack-tags">
-          <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Linux (Debian/Ubuntu)</span>
-          <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Nginx</span>
-          <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>PHP-FPM</span>
-          <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Docker</span>
-          <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Git / CI/CD</span>
-          <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Мониторинг</span>
-          <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Profiling</span>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot dim"></div>
+          <div class="timeline-period">Август 2016 — Февраль 2018 · 1 год 7 мес</div>
+          <div class="timeline-company">Хэппи Гифтс</div>
+          <div class="timeline-role">Руководитель отдела ИТ</div>
+          <ul class="timeline-bullets">
+            <li>Команда разработчиков (штат + аутсорс), бюджет, IT-стратегия</li>
+            <li>Бесперебойная работа 17 филиалов, мониторинг, резервирование</li>
+            <li>+12% онлайн-продаж за год — улучшение UX и оптимизация сценариев</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tl-tag">Team Lead</span>
+            <span class="tl-tag">1С-Битрикс</span>
+            <span class="tl-tag">Nginx</span>
+            <span class="tl-tag">Linux</span>
+          </div>
         </div>
-      </div>
 
-      <div class="reveal">
-        <div class="stack-group-title">Интеграции</div>
-        <div class="stack-tags">
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Bitrix24</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>YClients</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>1С</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>RetailCRM</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Mindbox</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>СДЭК / 5Post</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Робокасса</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>MS Axapta</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span">Google Analytics</span>
-          <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Яндекс.Метрика</span>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot dim"></div>
+          <div class="timeline-period">Май 2013 — Июнь 2016 · 3 года 2 мес</div>
+          <div class="timeline-company">Группа компаний Kokoc.</div>
+          <div class="timeline-role">Веб-разработчик (PHP, MySQL, JS)</div>
+          <ul class="timeline-bullets">
+            <li>1С-Битрикс, кастомные модули и компоненты</li>
+            <li>Интеграции с CRM, GTM, Google Analytics, Яндекс.Метрика</li>
+            <li>Участие в разработке сервиса Callback</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tl-tag">PHP</span>
+            <span class="tl-tag">MySQL</span>
+            <span class="tl-tag">1С-Битрикс</span>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TIMELINE -->
-<section class="timeline-section" id="experience">
-  <div class="container">
-    <div class="section-label reveal">Карьера</div>
-    <h2 class="section-title reveal">Опыт работы</h2>
-    <div class="timeline">
+  <!-- PROJECTS -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+      <div class="section-label reveal">Портфолио</div>
+      <h2 class="section-title reveal">Проекты</h2>
+      <div class="projects-grid">
 
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-period">Январь 2025 — настоящее время · 1 год 3 мес</div>
-        <div class="timeline-company">Клиника Превентивной Медицины</div>
-        <div class="timeline-role">PHP Fullstack Senior Developer</div>
-        <ul class="timeline-bullets">
-          <li>Веб-платформа «под ключ» — до 10 000 одновременных пользователей, 1–2 млн/мес</li>
-          <li>Интеграционная платформа YClients ↔ Bitrix24: синхронизация заказов и клиентов</li>
-          <li>Nuxt 3 + Vue 3 + TypeScript фронтенд, Laravel + Redis-очереди бэкенд</li>
-          <li>Декомпозиция монолита в сервис-ориентированные модули</li>
-          <li>Мониторинг, логирование, анализ инцидентов и превентивные улучшения</li>
-        </ul>
-        <div class="timeline-tags">
-          <span class="tl-tag">Laravel</span>
-          <span class="tl-tag">Nuxt 3</span>
-          <span class="tl-tag">Redis</span>
-          <span class="tl-tag">YClients</span>
-          <span class="tl-tag">Bitrix24</span>
-          <span class="tl-tag">High-load</span>
+        <div class="project-card reveal">
+          <div class="project-num">01</div>
+          <div class="project-title">YClients × Bitrix24 Integration Platform</div>
+          <div class="project-desc">High-load интеграционная платформа для сети клиник. 1–2 млн пользователей/мес,
+            очереди Redis, синхронизация в реальном времени.</div>
         </div>
-      </div>
 
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-period">Октябрь 2021 — Декабрь 2024 · 3 года 3 мес</div>
-        <div class="timeline-company">Единая Европа — Холдинг</div>
-        <div class="timeline-role">Backend Engineer Laravel / Bitrix</div>
-        <ul class="timeline-bullets">
-          <li>Laravel Octane (Swoole): время ответа API снижено с ~300 мс до 50–80 мс при пиках</li>
-          <li>Laravel Reverb + WebSockets: аналитика реального времени, 2000 одновременных подключений</li>
-          <li>Интеграции: Mindbox, RetailCRM, СДЭК, 5Post, Робокасса, MS SQL, Microsoft Axapta</li>
-          <li>Event-driven архитектура на Laravel Events + Listeners + Redis/Horizon</li>
-        </ul>
-        <div class="timeline-tags">
-          <span class="tl-tag">Laravel Octane</span>
-          <span class="tl-tag">Swoole</span>
-          <span class="tl-tag">WebSockets</span>
-          <span class="tl-tag">1С-Битрикс</span>
-          <span class="tl-tag">Vue.js</span>
+        <div class="project-card reveal">
+          <div class="project-num">02</div>
+          <div class="project-title">E-commerce High-load Platform</div>
+          <div class="project-desc">Платформа розничной сети на Laravel Octane + WebSockets. Выдержала «Чёрную пятницу»
+            без деградации при 2000+ одновременных подключений.</div>
         </div>
-      </div>
 
-      <div class="timeline-item reveal">
-        <div class="timeline-dot dim"></div>
-        <div class="timeline-period">Декабрь 2018 — Июнь 2021 · 2 года 7 мес</div>
-        <div class="timeline-company">МДМ Комплект</div>
-        <div class="timeline-role">Ведущий веб-разработчик</div>
-        <ul class="timeline-bullets">
-          <li>Полный цикл: архитектура, разработка, code review, production</li>
-          <li>Кастомные модули Битрикс, сложные каталоги, личные кабинеты</li>
-          <li>REST API, интеграции с платёжными системами и службами доставки</li>
-          <li>Laravel микросервисы + Vue.js фронтенд + React Native мобильный клиент</li>
-        </ul>
-        <div class="timeline-tags">
-          <span class="tl-tag">1С-Битрикс</span>
-          <span class="tl-tag">Laravel</span>
-          <span class="tl-tag">Vue.js</span>
-          <span class="tl-tag">React Native</span>
+        <div class="project-card reveal">
+          <div class="project-num">03</div>
+          <div class="project-title">Service-Oriented Monolith Migration</div>
+          <div class="project-desc">Декомпозиция монолитного легаси в сервис-ориентированные модули без остановки
+            production — поиск, рекомендации, выгрузки.</div>
         </div>
-      </div>
 
-      <div class="timeline-item reveal">
-        <div class="timeline-dot dim"></div>
-        <div class="timeline-period">Август 2016 — Февраль 2018 · 1 год 7 мес</div>
-        <div class="timeline-company">Хэппи Гифтс</div>
-        <div class="timeline-role">Руководитель отдела ИТ</div>
-        <ul class="timeline-bullets">
-          <li>Команда разработчиков (штат + аутсорс), бюджет, IT-стратегия</li>
-          <li>Бесперебойная работа 17 филиалов, мониторинг, резервирование</li>
-          <li>+12% онлайн-продаж за год — улучшение UX и оптимизация сценариев</li>
-        </ul>
-        <div class="timeline-tags">
-          <span class="tl-tag">Team Lead</span>
-          <span class="tl-tag">1С-Битрикс</span>
-          <span class="tl-tag">Nginx</span>
-          <span class="tl-tag">Linux</span>
-        </div>
       </div>
-
-      <div class="timeline-item reveal">
-        <div class="timeline-dot dim"></div>
-        <div class="timeline-period">Май 2013 — Июнь 2016 · 3 года 2 мес</div>
-        <div class="timeline-company">Группа компаний Kokoc.</div>
-        <div class="timeline-role">Веб-разработчик (PHP, MySQL, JS)</div>
-        <ul class="timeline-bullets">
-          <li>1С-Битрикс, кастомные модули и компоненты</li>
-          <li>Интеграции с CRM, GTM, Google Analytics, Яндекс.Метрика</li>
-          <li>Участие в разработке сервиса Callback</li>
-        </ul>
-        <div class="timeline-tags">
-          <span class="tl-tag">PHP</span>
-          <span class="tl-tag">MySQL</span>
-          <span class="tl-tag">1С-Битрикс</span>
-        </div>
-      </div>
-
+      <p class="reveal"
+        style="margin-top:2rem; font-family:var(--mono); font-size:0.78rem; color:var(--text-muted); text-align:center;">
+        Детальные кейсы в разработке — скоро здесь появятся реальные проекты с метриками и архитектурными схемами.
+      </p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROJECTS -->
-<section class="projects-section" id="projects">
-  <div class="container">
-    <div class="section-label reveal">Портфолио</div>
-    <h2 class="section-title reveal">Проекты</h2>
-    <div class="projects-grid">
-
-      <div class="project-card reveal">
-        <div class="project-num">01</div>
-        <div class="project-title">YClients × Bitrix24 Integration Platform</div>
-        <div class="project-desc">High-load интеграционная платформа для сети клиник. 1–2 млн пользователей/мес, очереди Redis, синхронизация в реальном времени.</div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-num">02</div>
-        <div class="project-title">E-commerce High-load Platform</div>
-        <div class="project-desc">Платформа розничной сети на Laravel Octane + WebSockets. Выдержала «Чёрную пятницу» без деградации при 2000+ одновременных подключений.</div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-num">03</div>
-        <div class="project-title">Service-Oriented Monolith Migration</div>
-        <div class="project-desc">Декомпозиция монолитного легаси в сервис-ориентированные модули без остановки production — поиск, рекомендации, выгрузки.</div>
-      </div>
-
-    </div>
-    <p class="reveal" style="margin-top:2rem; font-family:var(--mono); font-size:0.78rem; color:var(--text-muted); text-align:center;">
-      Детальные кейсы в разработке — скоро здесь появятся реальные проекты с метриками и архитектурными схемами.
-    </p>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="container">
-    <div class="section-label reveal">Связь</div>
-    <h2 class="section-title reveal">Обсудим задачу</h2>
-    <div class="contact-inner">
-      <div class="contact-text reveal">
-        <p>
-          Если нужна интеграция с внешними системами, высоконагруженный бэкенд, 
-          рефакторинг legacy или архитектурный консалтинг — напишите. 
-          Расскажу, как решал похожие задачи и что реально можно сделать.
-        </p>
-        <div class="contact-links">
-          <a href="https://t.me/taustyle" class="contact-link" target="_blank">
-            <div class="contact-link-icon">✈️</div>
-            <div>
-              <div class="contact-link-text">@taustyle</div>
-              <div class="contact-link-label">Telegram — предпочтительно</div>
-            </div>
-          </a>
-          <a href="mailto:taualexandr@gmail.com" class="contact-link">
-            <div class="contact-link-icon">✉️</div>
-            <div>
-              <div class="contact-link-text">taualexandr@gmail.com</div>
-              <div class="contact-link-label">Email</div>
-            </div>
-          </a>
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-label reveal">Связь</div>
+      <h2 class="section-title reveal">Обсудим задачу</h2>
+      <div class="contact-inner">
+        <div class="contact-text reveal">
+          <p>
+            Если нужна интеграция с внешними системами, высоконагруженный бэкенд,
+            рефакторинг legacy или архитектурный консалтинг — напишите.
+            Расскажу, как решал похожие задачи и что реально можно сделать.
+          </p>
+          <div class="contact-links">
+            <a href="https://t.me/taustyle" class="contact-link" target="_blank">
+              <div class="contact-link-icon">✈️</div>
+              <div>
+                <div class="contact-link-text">@taustyle</div>
+                <div class="contact-link-label">Telegram — предпочтительно</div>
+              </div>
+            </a>
+            <a href="mailto:taualexandr@gmail.com" class="contact-link">
+              <div class="contact-link-icon">✉️</div>
+              <div>
+                <div class="contact-link-text">taualexandr@gmail.com</div>
+                <div class="contact-link-label">Email</div>
+              </div>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
-        <div class="form-field">
+        <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="access_key" value="904c476c-8c06-45bb-b4aa-a574b32ddcde" <div class="form-field">
           <label class="form-label">Имя / Компания</label>
           <input type="text" class="form-input" placeholder="Acme Inc." id="f-name">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Контакт (tg / email)</label>
-          <input type="text" class="form-input" placeholder="@username" id="f-contact">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Задача</label>
-          <textarea class="form-textarea" placeholder="Опишите задачу — масштаб, стек, что сейчас не работает..." id="f-message"></textarea>
-        </div>
-        <button type="submit" class="btn-primary" style="width:fit-content">→ Отправить</button>
-        <div id="form-status" style="font-family:var(--mono);font-size:0.75rem;color:var(--neon);display:none;margin-top:0.5rem;"></div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Контакт (tg / email)</label>
+        <input type="text" class="form-input" placeholder="@username" id="f-contact">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Задача</label>
+        <textarea class="form-textarea" placeholder="Опишите задачу — масштаб, стек, что сейчас не работает..."
+          id="f-message"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width:fit-content">→ Отправить</button>
+      <div id="form-status"
+        style="font-family:var(--mono);font-size:0.75rem;color:var(--neon);display:none;margin-top:0.5rem;"></div>
       </form>
     </div>
-  </div>
-</section>
+    </div>
+  </section>
 
-<footer>
-  <div class="footer-text">© 2025 · PHP Senior Backend Developer · Москва</div>
-  <div class="footer-status">
-    <div class="status-dot"></div>
-    Открыт к проектам
-  </div>
-</footer>
+  <footer>
+    <div class="footer-text">© 2025 · PHP Senior Backend Developer · Москва</div>
+    <div class="footer-status">
+      <div class="status-dot"></div>
+      Открыт к проектам
+    </div>
+  </footer>
 
-<script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-        observer.unobserve(entry.target);
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const status = document.getElementById('form-status');
+      const name = document.getElementById('f-name').value;
+      const contact = document.getElementById('f-contact').value;
+      const msg = document.getElementById('f-message').value;
+
+      // Валидация
+      if (!contact || !msg) {
+        status.style.color = 'var(--accent)';
+        status.textContent = '// Укажите контакт и задачу';
+        status.style.display = 'block';
+        return;
       }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
 
-  // Form
-  function handleSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('f-name').value;
-    const contact = document.getElementById('f-contact').value;
-    const msg = document.getElementById('f-message').value;
-    if (!contact || !msg) {
-      const s = document.getElementById('form-status');
-      s.style.color = 'var(--accent)';
-      s.textContent = '// Укажите контакт и задачу';
-      s.style.display = 'block';
-      return;
+      status.style.display = 'block';
+      status.style.color = 'var(--neon)';
+      status.textContent = '// Отправка...';
+
+      // Подготовка данных для Web3Forms
+      const formData = new FormData();
+      formData.append("access_key", "904c476c-8c06-45bb-b4aa-a574b32ddcde");
+      formData.append("name", name);
+      formData.append("contact", contact);
+      formData.append("message", msg);
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        if (response.ok) {
+          status.textContent = '// Готово! Свяжусь в ближайшее время.';
+          e.target.reset(); // Очистить форму
+        } else {
+          status.textContent = '// Ошибка отправки. Попробуйте через TG: @taustyle';
+        }
+      } catch (error) {
+        status.textContent = '// Ошибка сети. Попробуйте позже.';
+      }
     }
-    const tgUrl = `https://t.me/taustyle`;
-    const s = document.getElementById('form-status');
-    s.style.color = 'var(--neon)';
-    s.textContent = `// Лучший способ связи — Telegram: @taustyle`;
-    s.style.display = 'block';
-  }
 
-  // Active nav link highlight on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+
+    // Active nav link highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--neon)' : '';
+      });
     });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#'+current ? 'var(--neon)' : '';
-    });
-  });
-</script>
+  </script>
 </body>
+
 </html>
