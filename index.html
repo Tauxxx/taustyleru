@@ -177,12 +177,26 @@
       margin-bottom: 0.3rem;
       opacity: 0;
       animation: fadeUp 0.7s 0.35s forwards;
+      word-break: break-word;
+      hyphens: auto;
     }
 
-    .hero-title .accent {
+    .hero-title .accent0,
+    .hero-title .accent1,
+    .hero-title .accent2 {
       background: linear-gradient(90deg, var(--neon), var(--neon2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title .accent1 {
+      background: linear-gradient(90deg, var(--neon), var(--neon3));
+      background-clip: text;
+    }
+
+    .hero-title .accent2 {
+      background: linear-gradient(90deg, var(--neon), #c9d6df);
       background-clip: text;
     }
 
@@ -829,36 +843,425 @@
       transform: translateY(0);
     }
 
+    /* CASES */
+    .cases-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cases-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .case-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0;
+      overflow: hidden;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+      transition: border-color 0.3s;
+    }
+
+    .case-card:hover {
+      border-color: var(--border-glow);
+    }
+
+    .case-left {
+      background: rgba(0, 255, 180, 0.03);
+      border-right: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .case-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.75rem;
+    }
+
+    .case-title {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+
+    .case-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .metric-val {
+      font-family: var(--mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--neon);
+      line-height: 1;
+    }
+
+    .metric-lbl {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .case-right {
+      padding: 2rem;
+    }
+
+    .case-block {
+      margin-bottom: 1.25rem;
+    }
+
+    .case-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .case-block-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .case-block-label::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      background: var(--case-color, var(--neon));
+    }
+
+    .case-block p {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    /* HOW I WORK */
+    .process-section {
+      background: var(--bg);
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .process-step {
+      padding: 2rem 1.75rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .process-step:last-child {
+      border-right: none;
+    }
+
+    .process-step:hover {
+      background: rgba(0, 255, 180, 0.02);
+    }
+
+    .process-step-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .process-step:hover .process-step-num {
+      color: var(--neon);
+      transition: color 0.3s;
+    }
+
+    .process-step-title {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 0.6rem;
+    }
+
+    .process-step p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .process-arrow {
+      position: absolute;
+      right: -0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--neon);
+      z-index: 1;
+      background: var(--bg);
+      padding: 0.1rem 0.2rem;
+    }
+
+    .process-formats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .format-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text);
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
+
+    .format-pill span {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--neon);
+    }
+
+    /* MANIFESTO */
+    .manifesto-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .manifesto-card {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+      transition: border-color 0.3s;
+    }
+
+    .manifesto-card:hover {
+      border-color: var(--border-glow);
+    }
+
+    .manifesto-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--m-color, var(--neon)), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .manifesto-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .manifesto-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .manifesto-title {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 0.6rem;
+    }
+
+    .manifesto-card p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--bg);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      text-align: left;
+      color: var(--text-bright);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .faq-q:hover {
+      background: rgba(0, 255, 180, 0.03);
+    }
+
+    .faq-q.open {
+      color: var(--neon);
+    }
+
+    .faq-icon {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--neon);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      width: 1.2rem;
+      text-align: center;
+    }
+
+    .faq-q.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 2rem;
+    }
+
+    .faq-a.open {
+      max-height: 300px;
+      padding: 0 2rem 1.5rem;
+    }
+
+    .faq-a p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .faq-a code {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--neon2);
+      background: rgba(0, 201, 255, 0.07);
+      padding: 0.1rem 0.4rem;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav {
-        padding: 1rem 1.25rem;
+      .case-card {
+        grid-template-columns: 1fr;
       }
 
-      .nav-links {
+      .case-left {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .process-step {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .process-step:last-child {
+        border-bottom: none;
+      }
+
+      .process-arrow {
         display: none;
       }
+    }
 
-      .hero {
-        padding: 7rem 1.25rem 3rem;
-      }
+    nav {
+      padding: 1rem 1.25rem;
+    }
 
-      section {
-        padding: 4rem 1.25rem;
-      }
+    .nav-links {
+      display: none;
+    }
 
-      .hero-stats {
-        gap: 2rem;
-      }
+    .hero {
+      padding: 7rem 1.25rem 3rem;
+    }
 
-      .contact-inner {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
+    section {
+      padding: 4rem 1.25rem;
+    }
 
-      footer {
-        padding: 1.5rem 1.25rem;
-      }
+    .hero-stats {
+      gap: 2rem;
+    }
+
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    footer {
+      padding: 1.5rem 1.25rem;
+    }
     }
   </style>
 </head>
@@ -867,12 +1270,16 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo"><span>~/</span>tau.dev</div>
+    <div class="nav-logo">~/ Taustyle.ru / Mar calmo nunca fez bom marinheiro<a
+        style="font-weight:bolder;font-size:1.5em;text-decoration:none;color:rgba(255, 255, 255, 0.89)"
+        href="#quote">¹</a></div>
     <ul class="nav-links">
       <li><a href="#clients">Заказчикам</a></li>
+      <li><a href="#cases">Кейсы</a></li>
       <li><a href="#stack">Стек</a></li>
       <li><a href="#experience">Опыт</a></li>
-      <li><a href="#projects">Проекты</a></li>
+      <li><a href="#process">Процесс</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Контакт</a></li>
     </ul>
   </nav>
@@ -884,9 +1291,9 @@
     <div class="hero-content">
       <div class="hero-tag">Senior PHP Backend Developer</div>
       <h1 class="hero-title">
-        Архитектура.<br>
-        <span class="accent">Интеграции.</span><br>
-        Производительность.
+        <span class="accent0">Архитектура.</span><br>
+        <span class="accent1">Интеграции.</span><br>
+        <span class="accent2">Производительность.</span>
       </h1>
       <p class="hero-subtitle">20+ лет в разработке — от стартапов до high-load платформ</p>
       <p class="hero-desc">
@@ -1215,6 +1622,317 @@
     </div>
   </section>
 
+  <!-- CASES -->
+  <section class="cases-section" id="cases">
+    <div class="container">
+      <div class="section-label reveal">Кейсы</div>
+      <h2 class="section-title reveal">Реальные задачи — реальные цифры</h2>
+      <div class="cases-list">
+
+        <div class="case-card reveal" style="--case-color: #00ffb4;">
+          <div class="case-left">
+            <div>
+              <div class="case-num">КЕЙС 01 · Медицина / High-load</div>
+              <div class="case-title">Интеграция YClients × Bitrix24 для сети клиник</div>
+            </div>
+            <div class="case-metric">
+              <div class="metric-item">
+                <div class="metric-val">1–2M</div>
+                <div class="metric-lbl">пользователей / мес</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val">10K</div>
+                <div class="metric-lbl">одновременных сессий</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val">0</div>
+                <div class="metric-lbl">потерь данных при пиках</div>
+              </div>
+            </div>
+          </div>
+          <div class="case-right">
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#00ffb4">Проблема</div>
+              <p>Сеть клиник работает на YClients для записи и Bitrix24 для CRM. Данные о записях, клиентах и статусах
+                существовали в двух разрозненных системах — менеджеры дублировали работу вручную, данные расходились,
+                при пиковой нагрузке сайт падал.</p>
+            </div>
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#00ffb4">Решение</div>
+              <p>Спроектировал интеграционную платформу с нуля: Laravel-бэкенд с Redis-очередями для асинхронной
+                синхронизации, Nuxt 3 + TypeScript фронтенд для виджета записи, стратегия кэширования для YClients API
+                (2 RPS rate limit). Декомпозиция монолита в сервисные модули — поиск, рекомендации, выгрузки.</p>
+            </div>
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#00ffb4">Результат</div>
+              <p>Платформа стабильно работает при 10 000 одновременных пользователей. Синхронизация заказов и клиентских
+                данных — автоматически. Менеджеры перестали дублировать данные вручную. Система мониторинга позволяет
+                выявлять проблемы до того, как они влияют на пользователей.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card reveal" style="--case-color: #00c9ff;">
+          <div class="case-left">
+            <div>
+              <div class="case-num">КЕЙС 02 · E-commerce / Performance</div>
+              <div class="case-title">High-load платформа розничной сети — «Чёрная пятница»</div>
+            </div>
+            <div class="case-metric">
+              <div class="metric-item">
+                <div class="metric-val">50–80ms</div>
+                <div class="metric-lbl">ответ API (было ~300ms)</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val">2000+</div>
+                <div class="metric-lbl">WebSocket-подключений</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val">0</div>
+                <div class="metric-lbl">деградации в пик трафика</div>
+              </div>
+            </div>
+          </div>
+          <div class="case-right">
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#00c9ff">Проблема</div>
+              <p>Интернет-магазин крупной розничной сети не справлялся с нагрузкой в акционные периоды. API отвечал
+                медленно (~300 мс), менеджеры не видели актуальных данных по остаткам и заказам в реальном времени.
+                Интеграции с Mindbox, RetailCRM, СДЭК были хрупкими.</p>
+            </div>
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#00c9ff">Решение</div>
+              <p>Внедрил Laravel Octane на Swoole — персистентный процесс убрал накладные расходы на инициализацию. Для
+                аналитики реального времени — Laravel Reverb с WebSockets (2000 одновременных подключений на одном
+                сервере). Event-driven архитектура для надёжности фоновых задач.</p>
+            </div>
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#00c9ff">Результат</div>
+              <p>Время ответа API снижено с ~300 мс до 50–80 мс при пиковых нагрузках. «Чёрная пятница» прошла без
+                деградации. Менеджеры получают обновления по продажам и остаткам мгновенно — без перезагрузки страницы.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card reveal" style="--case-color: #7b61ff;">
+          <div class="case-left">
+            <div>
+              <div class="case-num">КЕЙС 03 · Корпоратив / Architecture</div>
+              <div class="case-title">Миграция монолита без остановки production</div>
+            </div>
+            <div class="case-metric">
+              <div class="metric-item">
+                <div class="metric-val">+12%</div>
+                <div class="metric-lbl">онлайн-продаж за год</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val">17</div>
+                <div class="metric-lbl">филиалов без простоев</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val">↓</div>
+                <div class="metric-lbl">технический долг</div>
+              </div>
+            </div>
+          </div>
+          <div class="case-right">
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#7b61ff">Проблема</div>
+              <p>Устаревший монолит на 1С-Битрикс с годами накопленного технического долга. Добавление новой
+                функциональности занимало недели, любое изменение могло сломать соседний модуль. Бизнес хотел роста,
+                архитектура не позволяла.</p>
+            </div>
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#7b61ff">Решение</div>
+              <p>Поэтапная декомпозиция без остановки production: вынос независимых модулей в Laravel-сервисы (поиск,
+                рекомендации, выгрузки), рефакторинг legacy с сохранением бизнес-логики, внедрение современных практик —
+                Vue.js фронтенд, CI/CD, code review.</p>
+            </div>
+            <div class="case-block">
+              <div class="case-block-label" style="--case-color:#7b61ff">Результат</div>
+              <p>Новые фичи выходят в разы быстрее. Кодовая база пригодна для масштабирования. Онлайн-продажи выросли на
+                12% за год за счёт улучшения UX и скорости загрузки. Команда работает без постоянного страха «что-то
+                сломать».</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I WORK -->
+  <section class="process-section" id="process">
+    <div class="container">
+      <div class="section-label reveal">Процесс</div>
+      <h2 class="section-title reveal">Как я работаю</h2>
+      <div class="process-steps reveal">
+        <div class="process-step">
+          <div class="process-step-num">01</div>
+          <div class="process-step-title">Разбор задачи</div>
+          <p>Изучаю текущую архитектуру, стек, узкие места. Задаю неудобные вопросы. Не начинаю писать код, пока не
+            понял проблему полностью.</p>
+          <div class="process-arrow">▸</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">02</div>
+          <div class="process-step-title">Архитектура</div>
+          <p>Предлагаю решение с обоснованием. Объясняю trade-offs — что получим, от чего отказываемся и почему именно
+            этот путь.</p>
+          <div class="process-arrow">▸</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">03</div>
+          <div class="process-step-title">Разработка</div>
+          <p>Пишу итерациями с промежуточными ревью. Покрываю критичные места тестами. Документирую нетривиальные
+            решения прямо в коде.</p>
+          <div class="process-arrow">▸</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">04</div>
+          <div class="process-step-title">Деплой и передача</div>
+          <p>Выкатываю в production с планом отката. Настраиваю мониторинг. Передаю команде документацию и объясняю, как
+            это работает и как поддерживать.</p>
+        </div>
+      </div>
+      <div class="process-formats reveal">
+        <div class="format-pill"><span>01</span> Проектная работа — конкретная задача с результатом</div>
+        <div class="format-pill"><span>02</span> Аутстаф — в вашу команду на время</div>
+        <div class="format-pill"><span>03</span> Архитектурный консалтинг — оценка и план</div>
+        <div class="format-pill"><span>04</span> Code review — разовый аудит кодовой базы</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto-section" id="manifesto">
+    <div class="container">
+      <div class="section-label reveal">Принципы</div>
+      <h2 class="section-title reveal">Как я думаю о работе</h2>
+      <div class="manifesto-grid">
+        <div class="manifesto-card reveal" style="--m-color: #00ffb4;">
+          <div class="manifesto-icon">⚡</div>
+          <div class="manifesto-title">Сначала понять — потом писать</div>
+          <p>Неправильно понятая задача, решённая технически блестяще — это провал. Трачу время на уточнение требований,
+            потому что это дешевле, чем рефакторинг готового кода.</p>
+        </div>
+        <div class="manifesto-card reveal" style="--m-color: #00c9ff;">
+          <div class="manifesto-icon">🔩</div>
+          <div class="manifesto-title">Простое решение лучше умного</div>
+          <p>Если задачу можно решить без микросервисов, очередей и event sourcing — решаю без них. Сложность системы
+            должна соответствовать реальной проблеме, а не впечатлять.</p>
+        </div>
+        <div class="manifesto-card reveal" style="--m-color: #7b61ff;">
+          <div class="manifesto-icon">📊</div>
+          <div class="manifesto-title">Метрики, не интуиция</div>
+          <p>Оптимизирую то, что измеримо медленно. Профилирую перед тем, как трогать код. Решения по архитектуре
+            принимаю на основе данных нагрузки, а не предположений.</p>
+        </div>
+        <div class="manifesto-card reveal" style="--m-color: #ff4d6a;">
+          <div class="manifesto-icon">🔄</div>
+          <div class="manifesto-title">Код живёт после меня</div>
+          <p>Пишу так, чтобы следующий разработчик понял без созвона. Документирую «почему», а не «что». Легаси
+            появляется тогда, когда забываешь, что кто-то другой будет это поддерживать.</p>
+        </div>
+        <div class="manifesto-card reveal" style="--m-color: #ffa940;">
+          <div class="manifesto-icon">🔗</div>
+          <div class="manifesto-title">Интеграции — это договоры</div>
+          <p>Внешний API может упасть, изменить формат или начать тормозить. Проектирую интеграции с явными границами,
+            таймаутами, retry-логикой и fallback-сценариями.</p>
+        </div>
+        <div class="manifesto-card reveal" style="--m-color: #00ffb4;">
+          <div class="manifesto-icon">🎯</div>
+          <div class="manifesto-title">Бизнес-результат важнее технического совершенства</div>
+          <p>Идеальная архитектура, которая выйдет через три месяца вместо одного, часто хуже хорошего решения, которое
+            работает прямо сейчас и может быть улучшено итерационно.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-label reveal">FAQ</div>
+      <h2 class="section-title reveal">Частые вопросы</h2>
+      <div class="faq-list reveal">
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Берёшься за legacy-проекты и чужой код?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Да, и это значительная часть моей работы. Большинство реальных проектов — это не гринфилд, а системы с
+              историей. Умею читать чужой код, находить архитектурные проблемы и проводить рефакторинг без нарушения
+              бизнес-логики. Прежде чем что-то менять — разбираюсь, почему это написано именно так.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Работаешь один или с командой?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Могу работать как самостоятельно (полный цикл от архитектуры до production), так и встроиться в
+              существующую команду. Имею опыт руководства командой разработчиков, code review и менторинга. Формат
+              обсуждаем под задачу.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Какой минимальный объём задачи имеет смысл?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Предпочитаю задачи, где есть архитектурная составляющая — интеграция, рефакторинг, построение новой
+              функциональности. Разовые мелкие правки рассматриваю в контексте более длительного сотрудничества.
+              Напишите — скажу честно, имеет ли смысл обсуждать.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Подписываешь NDA? Как с конфиденциальностью?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Да, подписываю NDA. Данные клиентов и детали проектов не разглашаю. Все кейсы на сайте — обезличены или
+              описаны с разрешения. Работаю в рамках договора с чёткими обязательствами с обеих сторон.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Сколько времени нужно на онбординг в проект?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Зависит от сложности и состояния документации. Для типичного Laravel или Bitrix-проекта — 2–5 рабочих
+              дней, чтобы понять архитектуру и начать полезно работать. Помогает наличие <code>README</code>, схем БД и
+              доступа к staging-окружению.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Работаешь удалённо? Какие форматы взаимодействия?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Преимущественно удалённо — это мой основной формат работы. Готов к гибриду при необходимости. По
+              взаимодействию: предпочитаю асинхронную коммуникацию (Telegram, задачи в Jira/трекере) с синхронными
+              созвонами по ключевым точкам. Не пропадаю, отвечаю в разумное время.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact-section" id="contact">
     <div class="container">
@@ -1254,15 +1972,27 @@
   </section>
 
   <footer>
-    <div class="footer-text">© 2025 · PHP Senior Backend Developer · Москва</div>
+    <div class="footer-text">© 2026 · PHP Senior Backend Developer · </div>
     <div class="footer-status">
       <div class="status-dot"></div>
       Открыт к проектам
     </div>
+    <div id="quote" class="footer-text"><span style="font-weight: bolder;font-size:1.5em">¹</span>Спокойное море
+      никогда не делало хорошего моряка (порт.)</div>
   </footer>
-
   <script>
-    // Scroll reveal
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-q.open').forEach(b => b.classList.remove('open'));
+      if (!isOpen) {
+        answer.classList.add('open');
+        btn.classList.add('open');
+      }
+    }
+
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
