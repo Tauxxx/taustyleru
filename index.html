@@ -1246,24 +1246,26 @@
         </div>
 
         <form class="contact-form reveal" onsubmit="handleSubmit(event)">
-          <input type="hidden" name="access_key" value="904c476c-8c06-45bb-b4aa-a574b32ddcde" <div class="form-field">
-          <label class="form-label">Имя / Компания</label>
-          <input type="text" class="form-input" placeholder="Acme Inc." id="f-name">
+          <input type="hidden" name="access_key" value="904c476c-8c06-45bb-b4aa-a574b32ddcde">
+          <div class="form-field">
+            <label class="form-label">Имя / Компания</label>
+            <input type="text" class="form-input" placeholder="Acme Inc." id="f-name">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Контакт (tg / email)</label>
+            <input type="text" class="form-input" placeholder="@username" id="f-contact">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Задача</label>
+            <textarea class="form-textarea" placeholder="Опишите задачу — масштаб, стек, что сейчас не работает..."
+              id="f-message"></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:fit-content">→ Отправить</button>
+          <div id="form-status"
+            style="font-family:var(--mono);font-size:0.75rem;color:var(--neon);display:none;margin-top:0.5rem;"></div>
+        </form>
+        <script src="https://web3forms.com/client/script.js" async defer></script>
       </div>
-      <div class="form-field">
-        <label class="form-label">Контакт (tg / email)</label>
-        <input type="text" class="form-input" placeholder="@username" id="f-contact">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Задача</label>
-        <textarea class="form-textarea" placeholder="Опишите задачу — масштаб, стек, что сейчас не работает..."
-          id="f-message"></textarea>
-      </div>
-      <button type="submit" class="btn-primary" style="width:fit-content">→ Отправить</button>
-      <div id="form-status"
-        style="font-family:var(--mono);font-size:0.75rem;color:var(--neon);display:none;margin-top:0.5rem;"></div>
-      </form>
-    </div>
     </div>
   </section>
 
