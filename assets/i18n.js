@@ -100,7 +100,15 @@ const translations = {
     },
     stack: {
       label: "Технологии",
-      title: "Стек"
+      title: "Стек",
+      backend: "Backend",
+      db: "Базы данных и кэш",
+      frontend: "Фронтенд",
+      devops: "Инфраструктура и DevOps",
+      monitoring: "Мониторинг",
+      integrations: "Интеграции",
+      robokassa: "Робокасса",
+      yandex_metrica: "Яндекс.Метрика"
     },
     experience: {
       label: "Карьера",
@@ -168,6 +176,7 @@ const translations = {
     portfolio: {
       label: "Портфолио",
       title: "Проекты",
+      badge: "В РАЗРАБОТКЕ",
       dev: "Детальные кейсы в разработке — скоро здесь появятся реальные проекты с метриками и архитектурными схемами.",
       p1: {
         title: "YClients × Bitrix24 Integration Platform",
@@ -379,7 +388,15 @@ const translations = {
     },
     stack: {
       label: "Technologies",
-      title: "Stack"
+      title: "Stack",
+      backend: "Backend",
+      db: "Databases & Cache",
+      frontend: "Frontend",
+      devops: "Infrastructure & DevOps",
+      monitoring: "Monitoring",
+      integrations: "Integrations",
+      robokassa: "Robokassa",
+      yandex_metrica: "Yandex Metrica"
     },
     experience: {
       label: "Career",
@@ -447,6 +464,7 @@ const translations = {
     portfolio: {
       label: "Portfolio",
       title: "Projects",
+      badge: "UNDER DEVELOPMENT",
       dev: "Detailed cases are under development — real projects with metrics and architecture diagrams are coming soon.",
       p1: {
         title: "YClients × Bitrix24 Integration Platform",
@@ -581,6 +599,9 @@ const i18n = {
       if (text) {
         if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
           el.placeholder = text;
+        } else if (el.hasAttribute('data-i18n-attr')) {
+          const attr = el.getAttribute('data-i18n-attr');
+          el.setAttribute(attr, text);
         } else {
           el.innerHTML = text;
         }

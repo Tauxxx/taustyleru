@@ -13,7 +13,7 @@
   --text-muted: #b7c7d5;
   --text-bright: #eaf3fa;
   --mono: 'Fira Code', monospace;
-  --sans: 'Dela Gothic One', sans-serif;
+  --sans: 'Russo One', sans-serif;
   --body: 'Noto Sans', sans-serif;
 }
 
@@ -675,7 +675,7 @@ section {
 }
 
 .project-card::after {
-  content: 'В РАЗРАБОТКЕ';
+  content: attr(data-badge);
   position: absolute;
   top: 1.2rem;
   right: -1.8rem;

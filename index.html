@@ -10,8 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Fira+Code:wght@300..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans:wght@100..900&family=Russo+One&display=swap"
     rel="stylesheet">
+
+
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
@@ -96,25 +98,29 @@
           <div class="fintech-details">
             <div class="fintech-block" style="--fb-color: #00ffb4;">
               <div class="fintech-block-title" data-i18n="clients.med.i1">Интеграции</div>
-              <div class="fintech-block-body" data-i18n="clients.med.i1_body"><span class="hl">YClients API</span> (rate limit 2 RPS — решено через
+              <div class="fintech-block-body" data-i18n="clients.med.i1_body"><span class="hl">YClients API</span> (rate
+                limit 2 RPS — решено через
                 Cache::remember + waitForRateLimit). <span class="hl">Bitrix24 REST API</span> — двусторонняя
                 синхронизация заказов и клиентов. Webhook-обработчики для входящих событий.</div>
             </div>
             <div class="fintech-block" style="--fb-color: #00ffb4;">
               <div class="fintech-block-title" data-i18n="clients.med.i2">Архитектура под нагрузку</div>
-              <div class="fintech-block-body" data-i18n="clients.med.i2_body">Laravel + <span class="hl">Redis-очереди</span> для асинхронной
+              <div class="fintech-block-body" data-i18n="clients.med.i2_body">Laravel + <span
+                  class="hl">Redis-очереди</span> для асинхронной
                 синхронизации. Nuxt 3 + TypeScript виджет онлайн-записи. Многоуровневое кэширование — снижение нагрузки
                 на БД и внешние API.</div>
             </div>
             <div class="fintech-block" style="--fb-color: #00ffb4;">
               <div class="fintech-block-title" data-i18n="clients.med.i3">Надёжность и мониторинг</div>
-              <div class="fintech-block-body" data-i18n="clients.med.i3_body">Декомпозиция монолита в сервисные модули (поиск, рекомендации, выгрузки).
+              <div class="fintech-block-body" data-i18n="clients.med.i3_body">Декомпозиция монолита в сервисные модули
+                (поиск, рекомендации, выгрузки).
                 Метрики, логирование, анализ инцидентов — проактивное обнаружение проблем до того, как они касаются
                 пользователей.</div>
             </div>
             <div class="fintech-block" style="--fb-color: #00ffb4;">
               <div class="fintech-block-title" data-i18n="clients.med.i4">Инфраструктура</div>
-              <div class="fintech-block-body" data-i18n="clients.med.i4_body">Nginx → PHP-FPM → Laravel. MySQL / PostgreSQL + Redis. Настройка
+              <div class="fintech-block-body" data-i18n="clients.med.i4_body">Nginx → PHP-FPM → Laravel. MySQL /
+                PostgreSQL + Redis. Настройка
                 production-окружения with нуля — до стабильной работы при пиковом трафике.</div>
             </div>
           </div>
@@ -141,25 +147,29 @@
           <div class="fintech-details">
             <div class="fintech-block" style="--fb-color: #00c9ff;">
               <div class="fintech-block-title" data-i18n="clients.ecom.i1">Производительность</div>
-              <div class="fintech-block-body" data-i18n="clients.ecom.i1_body"><span class="hl">Laravel Octane</span> (Swoole) — персистентный процесс,
+              <div class="fintech-block-body" data-i18n="clients.ecom.i1_body"><span class="hl">Laravel Octane</span>
+                (Swoole) — персистентный процесс,
                 время ответа API 50–80 мс вместо ~300 мс. Оптимизация SQL-запросов, индексы, профилирование узких мест.
                 Кэширование на Redis.</div>
             </div>
             <div class="fintech-block" style="--fb-color: #00c9ff;">
               <div class="fintech-block-title" data-i18n="clients.ecom.i2">Real-time аналитика</div>
-              <div class="fintech-block-body" data-i18n="clients.ecom.i2_body"><span class="hl">Laravel Reverb</span> + WebSockets — 2000 одновременных
+              <div class="fintech-block-body" data-i18n="clients.ecom.i2_body"><span class="hl">Laravel Reverb</span> +
+                WebSockets — 2000 одновременных
                 подключений на одном сервере. Менеджеры видят продажи и остатки мгновенно, без перезагрузки страницы.
               </div>
             </div>
             <div class="fintech-block" style="--fb-color: #00c9ff;">
               <div class="fintech-block-title" data-i18n="clients.ecom.i3">Интеграции</div>
-              <div class="fintech-block-body" data-i18n="clients.ecom.i3_body">1С (двусторонний обмен товарами, заказами, остатками). <span
-                  class="hl">RetailCRM</span>, <span class="hl">Mindbox</span>. Доставка: СДЭК, 5Post. Оплата:
+              <div class="fintech-block-body" data-i18n="clients.ecom.i3_body">1С (двусторонний обмен товарами,
+                заказами, остатками). <span class="hl">RetailCRM</span>, <span class="hl">Mindbox</span>. Доставка:
+                СДЭК, 5Post. Оплата:
                 Робокасса. Google Analytics, Яндекс.Метрика + GTM.</div>
             </div>
             <div class="fintech-block" style="--fb-color: #00c9ff;">
               <div class="fintech-block-title" data-i18n="clients.ecom.i4">Платформа</div>
-              <div class="fintech-block-body" data-i18n="clients.ecom.i4_body">1С-Битрикс D7 (кастомные модули, компоненты) + Laravel-микросервисы для
+              <div class="fintech-block-body" data-i18n="clients.ecom.i4_body">1С-Битрикс D7 (кастомные модули,
+                компоненты) + Laravel-микросервисы для
                 сложной бизнес-логики. Vue.js / Nuxt фронтенд. Event-driven архитектура для фоновых задач.</div>
             </div>
           </div>
@@ -177,7 +187,8 @@
         <div class="client-card reveal fintech-card" style="--card-accent: #7b61ff;">
           <div class="client-icon">⚙️</div>
           <div class="client-type" data-i18n="clients.b2b.type">B2B / Корпоративный сектор</div>
-          <div class="client-title" data-i18n="clients.b2b.title">Компании с legacy-системами и сложными интеграциями</div>
+          <div class="client-title" data-i18n="clients.b2b.title">Компании с legacy-системами и сложными интеграциями
+          </div>
           <div class="client-desc" data-i18n="clients.b2b.desc">
             Старый монолит, который нельзя остановить, но нужно развивать? Несколько корпоративных систем, которые не
             умеют друг с другом разговаривать? Это моя стандартная задача — рефакторинг без потери бизнес-логики и
@@ -186,25 +197,29 @@
           <div class="fintech-details">
             <div class="fintech-block" style="--fb-color: #7b61ff;">
               <div class="fintech-block-title" data-i18n="clients.b2b.i1">Работа с legacy</div>
-              <div class="fintech-block-body" data-i18n="clients.b2b.i1_body">Анализ архитектурных ошибок накопленного кода. Рефакторинг без нарушения
+              <div class="fintech-block-body" data-i18n="clients.b2b.i1_body">Анализ архитектурных ошибок накопленного
+                кода. Рефакторинг без нарушения
                 бизнес-логики и стабильности. Поэтапная декомпозиция монолита в <span class="hl">Laravel-сервисы</span>
                 без остановки production.</div>
             </div>
             <div class="fintech-block" style="--fb-color: #7b61ff;">
               <div class="fintech-block-title" data-i18n="clients.b2b.i2">Корпоративные интеграции</div>
-              <div class="fintech-block-body" data-i18n="clients.b2b.i2_body"><span class="hl">MS SQL</span> и <span class="hl">Microsoft Axapta</span>
+              <div class="fintech-block-body" data-i18n="clients.b2b.i2_body"><span class="hl">MS SQL</span> и <span
+                  class="hl">Microsoft Axapta</span>
                 (ERP). Обмен данными с 1С. REST API для внутренних корпоративных сервисов. Контроль целостности и
                 отказоустойчивость обменов.</div>
             </div>
             <div class="fintech-block" style="--fb-color: #7b61ff;">
               <div class="fintech-block-title" data-i18n="clients.b2b.i3">Процессы и качество</div>
-              <div class="fintech-block-body" data-i18n="clients.b2b.i3_body">Code Review, контроль архитектуры. Git + CI/CD. Документирование
+              <div class="fintech-block-body" data-i18n="clients.b2b.i3_body">Code Review, контроль архитектуры. Git +
+                CI/CD. Документирование
                 нетривиальных решений. Формирование кодовой базы, пригодной для дальнейшего масштабирования командой.
               </div>
             </div>
             <div class="fintech-block" style="--fb-color: #7b61ff;">
               <div class="fintech-block-title" data-i18n="clients.b2b.i4">Микросервисная архитектура</div>
-              <div class="fintech-block-body" data-i18n="clients.b2b.i4_body">Выделение независимых модулей (поиск, рекомендации, уведомления,
+              <div class="fintech-block-body" data-i18n="clients.b2b.i4_body">Выделение независимых модулей (поиск,
+                рекомендации, уведомления,
                 выгрузки). <span class="hl">Event-driven</span> взаимодействие через очереди. Горизонтальное
                 масштабирование без переписывания ядра.</div>
             </div>
@@ -223,7 +238,8 @@
         <div class="client-card reveal fintech-card" style="--card-accent: #ff4d6a;">
           <div class="client-icon">🚀</div>
           <div class="client-type" data-i18n="clients.startup.type">Продукты / Стартапы</div>
-          <div class="client-title" data-i18n="clients.startup.title">Команды, которым нужен опытный senior fullstack/backend</div>
+          <div class="client-title" data-i18n="clients.startup.title">Команды, которым нужен опытный senior
+            fullstack/backend</div>
           <div class="client-desc" data-i18n="clients.startup.desc">
             Нет смысла держать в штате дорогого сеньора ради одного проекта или этапа. Подключаюсь, проектирую
             архитектуру, выстраиваю процессы — и передаю команде работающую систему с документацией.
@@ -231,26 +247,31 @@
           <div class="fintech-details">
             <div class="fintech-block" style="--fb-color: #ff4d6a;">
               <div class="fintech-block-title" data-i18n="clients.startup.i1">Архитектура с нуля</div>
-              <div class="fintech-block-body" data-i18n="clients.startup.i1_body">Выбор стека под задачу (не под моду). Проектирование БД, API, очередей.
+              <div class="fintech-block-body" data-i18n="clients.startup.i1_body">Выбор стека под задачу (не под моду).
+                Проектирование БД, API, очередей.
                 <span class="hl">Laravel</span> как основа — быстрый старт без потери масштабируемости. Документирование
                 решений для команды.
               </div>
             </div>
             <div class="fintech-block" style="--fb-color: #ff4d6a;">
               <div class="fintech-block-title" data-i18n="clients.startup.i2">Полный стек при необходимости</div>
-              <div class="fintech-block-body" data-i18n="clients.startup.i2_body">Бэкенд: PHP 8 / Laravel. Фронтенд: <span class="hl">Vue 3 / Nuxt 3 /
+              <div class="fintech-block-body" data-i18n="clients.startup.i2_body">Бэкенд: PHP 8 / Laravel. Фронтенд:
+                <span class="hl">Vue 3 / Nuxt 3 /
                   TypeScript</span>. DevOps: Nginx, Docker, CI/CD. Могу закрыть весь цикл до момента, когда команда
-                готова подхватить.</div>
+                готова подхватить.
+              </div>
             </div>
             <div class="fintech-block" style="--fb-color: #ff4d6a;">
               <div class="fintech-block-title" data-i18n="clients.startup.i3">Code Review и менторинг</div>
-              <div class="fintech-block-body" data-i18n="clients.startup.i3_body">Разовый аудит кодовой базы с письменным отчётом. Систематический review
+              <div class="fintech-block-body" data-i18n="clients.startup.i3_body">Разовый аудит кодовой базы с
+                письменным отчётом. Систематический review
                 для junior/middle-разработчиков. Объяснение решений — не просто «так правильно», а почему именно так.
               </div>
             </div>
             <div class="fintech-block" style="--fb-color: #ff4d6a;">
               <div class="fintech-block-title" data-i18n="clients.startup.i4">Форматы работы</div>
-              <div class="fintech-block-body" data-i18n="clients.startup.i4_body">Проектная работа (конкретная задача → результат). Аутстаф в команду на
+              <div class="fintech-block-body" data-i18n="clients.startup.i4_body">Проектная работа (конкретная задача →
+                результат). Аутстаф в команду на
                 время. Архитектурный консалтинг (оценка + план). Удалённо, гибко, с прозрачной коммуникацией.</div>
             </div>
           </div>
@@ -276,23 +297,27 @@
           <div class="fintech-details">
             <div class="fintech-block">
               <div class="fintech-block-title" data-i18n="clients.fintech.i1">Транзакционное ядро</div>
-              <div class="fintech-block-body" data-i18n="clients.fintech.i1_body">PostgreSQL / MySQL с <span class="hl">SERIALIZABLE isolation</span> +
+              <div class="fintech-block-body" data-i18n="clients.fintech.i1_body">PostgreSQL / MySQL с <span
+                  class="hl">SERIALIZABLE isolation</span> +
                 advisory locks. Double-entry bookkeeping в БД. Явный <span class="hl">beginTransaction</span> везде,
                 идемпотентность через <span class="hl">idempotency_key</span>.</div>
             </div>
             <div class="fintech-block">
               <div class="fintech-block-title" data-i18n="clients.fintech.i2">Laravel-стек для финтех</div>
-              <div class="fintech-block-body" data-i18n="clients.fintech.i2_body">Horizon + Redis для асинхронных операций. Events + Listeners — аудит лог
+              <div class="fintech-block-body" data-i18n="clients.fintech.i2_body">Horizon + Redis для асинхронных
+                операций. Events + Listeners — аудит лог
                 каждой операции. Database transactions на уровне сервисного слоя.</div>
             </div>
             <div class="fintech-block">
               <div class="fintech-block-title" data-i18n="clients.fintech.i3">Антифрод</div>
-              <div class="fintech-block-body" data-i18n="clients.fintech.i3_body">Rate limiting по IP / карте / устройству. Velocity checks (N транзакций за
+              <div class="fintech-block-body" data-i18n="clients.fintech.i3_body">Rate limiting по IP / карте /
+                устройству. Velocity checks (N транзакций за
                 M минут). Blacklist-сервисы (MaxMind). Аномалии по сумме и гео.</div>
             </div>
             <div class="fintech-block">
               <div class="fintech-block-title" data-i18n="clients.fintech.i4">PSP / Банки / Инфраструктура</div>
-              <div class="fintech-block-body" data-i18n="clients.fintech.i4_body">REST + Webhooks, ISO 8583 (legacy), PCI DSS. Стек: Nginx → PHP-FPM → Redis
+              <div class="fintech-block-body" data-i18n="clients.fintech.i4_body">REST + Webhooks, ISO 8583 (legacy),
+                PCI DSS. Стек: Nginx → PHP-FPM → Redis
                 → PostgreSQL primary+replica. HashiCorp Vault для ключей, ELK / Loki для аудит-лога.</div>
             </div>
           </div>
@@ -318,7 +343,7 @@
       <div class="stack-groups">
 
         <div class="reveal">
-          <div class="stack-group-title">Backend</div>
+          <div class="stack-group-title" data-i18n="stack.backend">Backend</div>
           <div class="stack-tags">
             <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>PHP 8</span>
             <span class="stack-tag" style="--tag-color:#00ffb4"><span class="dot"></span>Laravel</span>
@@ -334,7 +359,7 @@
         </div>
 
         <div class="reveal">
-          <div class="stack-group-title">Базы данных и кэш</div>
+          <div class="stack-group-title" data-i18n="stack.db">Базы данных и кэш</div>
           <div class="stack-tags">
             <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>MySQL / MariaDB</span>
             <span class="stack-tag" style="--tag-color:#00c9ff"><span class="dot"></span>PostgreSQL</span>
@@ -347,7 +372,7 @@
         </div>
 
         <div class="reveal">
-          <div class="stack-group-title">Фронтенд</div>
+          <div class="stack-group-title" data-i18n="stack.frontend">Фронтенд</div>
           <div class="stack-tags">
             <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Vue 3</span>
             <span class="stack-tag" style="--tag-color:#7b61ff"><span class="dot"></span>Nuxt 3</span>
@@ -361,20 +386,21 @@
         </div>
 
         <div class="reveal">
-          <div class="stack-group-title">Инфраструктура и DevOps</div>
+          <div class="stack-group-title" data-i18n="stack.devops">Инфраструктура и DevOps</div>
           <div class="stack-tags">
             <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Linux (Debian/Ubuntu)</span>
             <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Nginx</span>
             <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>PHP-FPM</span>
             <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Docker</span>
             <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Git / CI/CD</span>
-            <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Мониторинг</span>
+            <span class="stack-tag" style="--tag-color:#ff4d6a" data-i18n="stack.monitoring"><span
+                class="dot"></span>Мониторинг</span>
             <span class="stack-tag" style="--tag-color:#ff4d6a"><span class="dot"></span>Profiling</span>
           </div>
         </div>
 
         <div class="reveal">
-          <div class="stack-group-title">Интеграции</div>
+          <div class="stack-group-title" data-i18n="stack.integrations">Интеграции</div>
           <div class="stack-tags">
             <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Bitrix24</span>
             <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>YClients</span>
@@ -382,10 +408,12 @@
             <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>RetailCRM</span>
             <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Mindbox</span>
             <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>СДЭК / 5Post</span>
-            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Робокасса</span>
+            <span class="stack-tag" style="--tag-color:#ffa940" data-i18n="stack.robokassa"><span
+                class="dot"></span>Робокасса</span>
             <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>MS Axapta</span>
             <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Google Analytics</span>
-            <span class="stack-tag" style="--tag-color:#ffa940"><span class="dot"></span>Яндекс.Метрика</span>
+            <span class="stack-tag" style="--tag-color:#ffa940" data-i18n="stack.yandex_metrica"><span
+                class="dot"></span>Яндекс.Метрика</span>
           </div>
         </div>
 
@@ -406,11 +434,15 @@
           <div class="timeline-company" data-i18n="experience.items.0.company">Клиника Превентивной Медицины</div>
           <div class="timeline-role" data-i18n="experience.items.0.role">PHP Fullstack Senior Developer</div>
           <ul class="timeline-bullets">
-            <li data-i18n="experience.items.0.desc.0">Веб-платформа «под ключ» — до 10 000 одновременных пользователей, 1–2 млн/мес</li>
-            <li data-i18n="experience.items.0.desc.1">Интеграционная платформа YClients ↔ Bitrix24: синхронизация заказов и клиентов</li>
-            <li data-i18n="experience.items.0.desc.2">Nuxt 3 + Vue 3 + TypeScript фронтенд, Laravel + Redis-очереди бэкенд</li>
+            <li data-i18n="experience.items.0.desc.0">Веб-платформа «под ключ» — до 10 000 одновременных пользователей,
+              1–2 млн/мес</li>
+            <li data-i18n="experience.items.0.desc.1">Интеграционная платформа YClients ↔ Bitrix24: синхронизация
+              заказов и клиентов</li>
+            <li data-i18n="experience.items.0.desc.2">Nuxt 3 + Vue 3 + TypeScript фронтенд, Laravel + Redis-очереди
+              бэкенд</li>
             <li data-i18n="experience.items.0.desc.3">Декомпозиция монолита в сервис-ориентированные модули</li>
-            <li data-i18n="experience.items.0.desc.4">Мониторинг, логирование, анализ инцидентов и превентивные улучшения</li>
+            <li data-i18n="experience.items.0.desc.4">Мониторинг, логирование, анализ инцидентов и превентивные
+              улучшения</li>
           </ul>
           <div class="timeline-tags">
             <span class="tl-tag">Laravel</span>
@@ -428,10 +460,14 @@
           <div class="timeline-company" data-i18n="experience.items.1.company">Единая Европа — Холдинг</div>
           <div class="timeline-role" data-i18n="experience.items.1.role">Fullstack Engineer Laravel / Bitrix</div>
           <ul class="timeline-bullets">
-            <li data-i18n="experience.items.1.desc.0">Laravel Octane (Swoole): время ответа API снижено с ~300 мс до 50–80 мс при пиках</li>
-            <li data-i18n="experience.items.1.desc.1">Laravel Reverb + WebSockets: аналитика реального времени, 2000 одновременных подключений</li>
-            <li data-i18n="experience.items.1.desc.2">Интеграции: Mindbox, RetailCRM, СДЭК, 5Post, Робокасса, MS SQL, Microsoft Axapta</li>
-            <li data-i18n="experience.items.1.desc.3">Event-driven архитектура на Laravel Events + Listeners + Redis/Horizon</li>
+            <li data-i18n="experience.items.1.desc.0">Laravel Octane (Swoole): время ответа API снижено с ~300 мс до
+              50–80 мс при пиках</li>
+            <li data-i18n="experience.items.1.desc.1">Laravel Reverb + WebSockets: аналитика реального времени, 2000
+              одновременных подключений</li>
+            <li data-i18n="experience.items.1.desc.2">Интеграции: Mindbox, RetailCRM, СДЭК, 5Post, Робокасса, MS SQL,
+              Microsoft Axapta</li>
+            <li data-i18n="experience.items.1.desc.3">Event-driven архитектура на Laravel Events + Listeners +
+              Redis/Horizon</li>
           </ul>
           <div class="timeline-tags">
             <span class="tl-tag">Laravel Octane</span>
@@ -450,8 +486,10 @@
           <ul class="timeline-bullets">
             <li data-i18n="experience.items.2.desc.0">Полный цикл: архитектура, разработка, code review, production</li>
             <li data-i18n="experience.items.2.desc.1">Кастомные модули Битрикс, сложные каталоги, личные кабинеты</li>
-            <li data-i18n="experience.items.2.desc.2">REST API, интеграции с платёжными системами и службами доставки</li>
-            <li data-i18n="experience.items.2.desc.3">Laravel микросервисы + Vue.js фронтенд + React Native мобильный клиент</li>
+            <li data-i18n="experience.items.2.desc.2">REST API, интеграции с платёжными системами и службами доставки
+            </li>
+            <li data-i18n="experience.items.2.desc.3">Laravel микросервисы + Vue.js фронтенд + React Native мобильный
+              клиент</li>
           </ul>
           <div class="timeline-tags">
             <span class="tl-tag">1С-Битрикс</span>
@@ -469,7 +507,8 @@
           <ul class="timeline-bullets">
             <li data-i18n="experience.items.3.desc.0">Команда разработчиков (штат + аутсорс), бюджет, IT-стратегия</li>
             <li data-i18n="experience.items.3.desc.1">Бесперебойная работа 17 филиалов, мониторинг, резервирование</li>
-            <li data-i18n="experience.items.3.desc.2">+12% онлайн-продаж за год — улучшение UX и оптимизация сценариев</li>
+            <li data-i18n="experience.items.3.desc.2">+12% онлайн-продаж за год — улучшение UX и оптимизация сценариев
+            </li>
           </ul>
           <div class="timeline-tags">
             <span class="tl-tag">Team Lead</span>
@@ -507,30 +546,34 @@
       <h2 class="section-title reveal" data-i18n="portfolio.title">Проекты</h2>
       <div class="projects-grid">
 
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-i18n="portfolio.badge" data-i18n-attr="data-badge">
           <div class="project-num">01</div>
           <div class="project-title" data-i18n="portfolio.p1.title">YClients × Bitrix24 Integration Platform</div>
-          <div class="project-desc" data-i18n="portfolio.p1.desc">High-load интеграционная платформа для сети клиник. 1–2 млн пользователей/мес,
+          <div class="project-desc" data-i18n="portfolio.p1.desc">High-load интеграционная платформа для сети клиник.
+            1–2 млн пользователей/мес,
             очереди Redis, синхронизация в реальном времени.</div>
         </div>
 
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-i18n="portfolio.badge" data-i18n-attr="data-badge">
           <div class="project-num">02</div>
           <div class="project-title" data-i18n="portfolio.p2.title">E-commerce High-load Platform</div>
-          <div class="project-desc" data-i18n="portfolio.p2.desc">Платформа розничной сети на Laravel Octane + WebSockets. Выдержала «Чёрную пятницу»
+          <div class="project-desc" data-i18n="portfolio.p2.desc">Платформа розничной сети на Laravel Octane +
+            WebSockets. Выдержала «Чёрную пятницу»
             без деградации при 2000+ одновременных подключений.</div>
         </div>
 
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-i18n="portfolio.badge" data-i18n-attr="data-badge">
           <div class="project-num">03</div>
           <div class="project-title" data-i18n="portfolio.p3.title">Service-Oriented Monolith Migration</div>
-          <div class="project-desc" data-i18n="portfolio.p3.desc">Декомпозиция монолитного легаси в сервис-ориентированные модули без остановки
+          <div class="project-desc" data-i18n="portfolio.p3.desc">Декомпозиция монолитного легаси в
+            сервис-ориентированные модули без остановки
             production — поиск, рекомендации, выгрузки.</div>
         </div>
 
       </div>
       <p class="reveal"
-        style="margin-top:2rem; font-family:var(--mono); font-size:0.78rem; color:var(--text-muted); text-align:center;" data-i18n="portfolio.dev">
+        style="margin-top:2rem; font-family:var(--mono); font-size:0.78rem; color:var(--text-muted); text-align:center;"
+        data-i18n="portfolio.dev">
         Детальные кейсы в разработке — скоро здесь появятся реальные проекты с метриками и архитектурными схемами.
       </p>
     </div>
@@ -567,15 +610,22 @@
           <div class="case-right">
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#00ffb4" data-i18n="cases.c1.prob">Проблема</div>
-              <p data-i18n="cases.c1.prob_body">Сеть клиник работает на YClients для записи и Bitrix24 для CRM. Данные о записях, клиентах и статусах существовали в двух разрозненных системах — менеджеры дублировали работу вручную, данные расходились, при пиковой нагрузке сайт падал.</p>
+              <p data-i18n="cases.c1.prob_body">Сеть клиник работает на YClients для записи и Bitrix24 для CRM. Данные о
+                записях, клиентах и статусах существовали в двух разрозненных системах — менеджеры дублировали работу
+                вручную, данные расходились, при пиковой нагрузке сайт падал.</p>
             </div>
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#00ffb4" data-i18n="cases.c1.sol">Решение</div>
-              <p data-i18n="cases.c1.sol_body">Спроектировал интеграционную платформу с нуля: Laravel-бэкенд с Redis-очередями для асинхронной синхронизации, Nuxt 3 + TypeScript фронтенд для виджета записи, стратегия кэширования для YClients API (2 RPS rate limit). Декомпозиция монолита в сервисные модули — поиск, рекомендации, выгрузки.</p>
+              <p data-i18n="cases.c1.sol_body">Спроектировал интеграционную платформу с нуля: Laravel-бэкенд с
+                Redis-очередями для асинхронной синхронизации, Nuxt 3 + TypeScript фронтенд для виджета записи,
+                стратегия кэширования для YClients API (2 RPS rate limit). Декомпозиция монолита в сервисные модули —
+                поиск, рекомендации, выгрузки.</p>
             </div>
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#00ffb4" data-i18n="cases.c1.res">Результат</div>
-              <p data-i18n="cases.c1.res_body">Платформа стабильно работает при 10 000 одновременных пользователей. Синхронизация заказов и клиентских данных — автоматически. Менеджеры перестали дублировать данные вручную. Система мониторинга позволяет выявлять проблемы до того, как они влияют на пользователей.</p>
+              <p data-i18n="cases.c1.res_body">Платформа стабильно работает при 10 000 одновременных пользователей.
+                Синхронизация заказов и клиентских данных — автоматически. Менеджеры перестали дублировать данные
+                вручную. Система мониторинга позволяет выявлять проблемы до того, как они влияют на пользователей.</p>
             </div>
           </div>
         </div>
@@ -584,7 +634,8 @@
           <div class="case-left">
             <div>
               <div class="case-num" data-i18n="cases.c2.type">КЕЙС 02 · E-commerce / Performance</div>
-              <div class="case-title" data-i18n="cases.c2.title">High-load платформа розничной сети — «Чёрная пятница»</div>
+              <div class="case-title" data-i18n="cases.c2.title">High-load платформа розничной сети — «Чёрная пятница»
+              </div>
             </div>
             <div class="case-metric">
               <div class="metric-item">
@@ -604,15 +655,21 @@
           <div class="case-right">
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#00c9ff" data-i18n="cases.c2.prob">Проблема</div>
-              <p data-i18n="cases.c2.prob_body">Интернет-магазин крупной розничной сети не справлялся с нагрузкой в акционные периоды. API отвечал медленно (~300 мс), менеджеры не видели актуальных данных по остаткам и заказам в реальном времени. Интеграции с Mindbox, RetailCRM, СДЭК были хрупкими.</p>
+              <p data-i18n="cases.c2.prob_body">Интернет-магазин крупной розничной сети не справлялся с нагрузкой в
+                акционные периоды. API отвечал медленно (~300 мс), менеджеры не видели актуальных данных по остаткам и
+                заказам в реальном времени. Интеграции с Mindbox, RetailCRM, СДЭК были хрупкими.</p>
             </div>
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#00c9ff" data-i18n="cases.c2.sol">Решение</div>
-              <p data-i18n="cases.c2.sol_body">Внедрил Laravel Octane на Swoole — персистентный процесс убрал накладные расходы на инициализацию. Для аналитики реального времени — Laravel Reverb с WebSockets (2000 одновременных подключений на одном сервере). Event-driven архитектура для надёжности фоновых задач.</p>
+              <p data-i18n="cases.c2.sol_body">Внедрил Laravel Octane на Swoole — персистентный процесс убрал накладные
+                расходы на инициализацию. Для аналитики реального времени — Laravel Reverb с WebSockets (2000
+                одновременных подключений на одном сервере). Event-driven архитектура для надёжности фоновых задач.</p>
             </div>
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#00c9ff" data-i18n="cases.c2.res">Результат</div>
-              <p data-i18n="cases.c2.res_body">Время ответа API снижено с ~300 мс до 50–80 мс при пиковых нагрузках. «Чёрная пятница» прошла без деградации. Менеджеры получают обновления по продажам и остаткам мгновенно — без перезагрузки страницы.</p>
+              <p data-i18n="cases.c2.res_body">Время ответа API снижено с ~300 мс до 50–80 мс при пиковых нагрузках.
+                «Чёрная пятница» прошла без деградации. Менеджеры получают обновления по продажам и остаткам мгновенно —
+                без перезагрузки страницы.</p>
             </div>
           </div>
         </div>
@@ -641,15 +698,21 @@
           <div class="case-right">
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#7b61ff" data-i18n="cases.c3.prob">Проблема</div>
-              <p data-i18n="cases.c3.prob_body">Устаревший монолит на 1С-Битрикс с годами накопленного технического долга. Добавление новой функциональности занимало недели, любое изменение могло сломать соседний модуль. Бизнес хотел роста, архитектура не позволяла.</p>
+              <p data-i18n="cases.c3.prob_body">Устаревший монолит на 1С-Битрикс с годами накопленного технического
+                долга. Добавление новой функциональности занимало недели, любое изменение могло сломать соседний модуль.
+                Бизнес хотел роста, архитектура не позволяла.</p>
             </div>
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#7b61ff" data-i18n="cases.c3.sol">Решение</div>
-              <p data-i18n="cases.c3.sol_body">Поэтапная декомпозиция без остановки production: вынос независимых модулей в Laravel-сервисы (поиск, рекомендации, выгрузки), рефакторинг legacy with сохранением бизнес-логики, внедрение современных практик — Vue.js фронтенд, CI/CD, code review.</p>
+              <p data-i18n="cases.c3.sol_body">Поэтапная декомпозиция без остановки production: вынос независимых
+                модулей в Laravel-сервисы (поиск, рекомендации, выгрузки), рефакторинг legacy with сохранением
+                бизнес-логики, внедрение современных практик — Vue.js фронтенд, CI/CD, code review.</p>
             </div>
             <div class="case-block">
               <div class="case-block-label" style="--case-color:#7b61ff" data-i18n="cases.c3.res">Результат</div>
-              <p data-i18n="cases.c3.res_body">Новые фичи выходят в разы быстрее. Кодовая база пригодна для масштабирования. Онлайн-продажи выросли на 12% за год за счёт улучшения UX и скорости загрузки. Команда работает без постоянного страха «что-то сломать».</p>
+              <p data-i18n="cases.c3.res_body">Новые фичи выходят в разы быстрее. Кодовая база пригодна для
+                масштабирования. Онлайн-продажи выросли на 12% за год за счёт улучшения UX и скорости загрузки. Команда
+                работает без постоянного страха «что-то сломать».</p>
             </div>
           </div>
         </div>
@@ -667,29 +730,34 @@
         <div class="process-step">
           <div class="process-step-num">01</div>
           <div class="process-step-title" data-i18n="process.s1.title">Разбор задачи</div>
-          <p data-i18n="process.s1.body">Изучаю текущую архитектуру, стек, узкие места. Задаю неудобные вопросы. Не начинаю писать код, пока не понял проблему полностью.</p>
+          <p data-i18n="process.s1.body">Изучаю текущую архитектуру, стек, узкие места. Задаю неудобные вопросы. Не
+            начинаю писать код, пока не понял проблему полностью.</p>
           <div class="process-arrow">▸</div>
         </div>
         <div class="process-step">
           <div class="process-step-num">02</div>
           <div class="process-step-title" data-i18n="process.s2.title">Архитектура</div>
-          <p data-i18n="process.s2.body">Предлагаю решение с обоснованием. Объясняю trade-offs — что получим, от чего отказываемся и почему именно этот путь.</p>
+          <p data-i18n="process.s2.body">Предлагаю решение с обоснованием. Объясняю trade-offs — что получим, от чего
+            отказываемся и почему именно этот путь.</p>
           <div class="process-arrow">▸</div>
         </div>
         <div class="process-step">
           <div class="process-step-num">03</div>
           <div class="process-step-title" data-i18n="process.s3.title">Разработка</div>
-          <p data-i18n="process.s3.body">Пишу итерациями с промежуточными ревью. Покрываю критичные места тестами. Документирую нетривиальные решения прямо в коде.</p>
+          <p data-i18n="process.s3.body">Пишу итерациями с промежуточными ревью. Покрываю критичные места тестами.
+            Документирую нетривиальные решения прямо в коде.</p>
           <div class="process-arrow">▸</div>
         </div>
         <div class="process-step">
           <div class="process-step-num">04</div>
           <div class="process-step-title" data-i18n="process.s4.title">Деплой и передача</div>
-          <p data-i18n="process.s4.body">Выкатываю в production с планом отката. Настраиваю мониторинг. Передаю команде документацию и объясняю, как это работает и как поддерживать.</p>
+          <p data-i18n="process.s4.body">Выкатываю в production с планом отката. Настраиваю мониторинг. Передаю команде
+            документацию и объясняю, как это работает и как поддерживать.</p>
         </div>
       </div>
       <div class="process-formats reveal">
-        <div class="format-pill"><span data-i18n="process.f1">01 Проектная работа — конкретная задача с результатом</span></div>
+        <div class="format-pill"><span data-i18n="process.f1">01 Проектная работа — конкретная задача с
+            результатом</span></div>
         <div class="format-pill"><span data-i18n="process.f2">02 Аутстаф — в вашу команду на время</span></div>
         <div class="format-pill"><span data-i18n="process.f3">03 Архитектурный консалтинг — оценка и план</span></div>
         <div class="format-pill"><span data-i18n="process.f4">04 Code review — разовый аудит кодовой базы</span></div>
@@ -706,32 +774,40 @@
         <div class="manifesto-card reveal" style="--m-color: #00ffb4;">
           <div class="manifesto-icon">⚡</div>
           <div class="manifesto-title" data-i18n="manifesto.m1.title">Сначала понять — потом писать</div>
-          <p data-i18n="manifesto.m1.body">Неправильно понятая задача, решённая технически блестяще — это провал. Трачу время на уточнение требований, потому что это дешевле, чем рефакторинг готового кода.</p>
+          <p data-i18n="manifesto.m1.body">Неправильно понятая задача, решённая технически блестяще — это провал. Трачу
+            время на уточнение требований, потому что это дешевле, чем рефакторинг готового кода.</p>
         </div>
         <div class="manifesto-card reveal" style="--m-color: #00c9ff;">
           <div class="manifesto-icon">🔩</div>
           <div class="manifesto-title" data-i18n="manifesto.m2.title">Простое решение лучше умного</div>
-          <p data-i18n="manifesto.m2.body">Если задачу можно решить без микросервисов, очередей и event sourcing — решаю без них. Сложность системы должна соответствовать реальной проблеме, а не впечатлять.</p>
+          <p data-i18n="manifesto.m2.body">Если задачу можно решить без микросервисов, очередей и event sourcing — решаю
+            без них. Сложность системы должна соответствовать реальной проблеме, а не впечатлять.</p>
         </div>
         <div class="manifesto-card reveal" style="--m-color: #7b61ff;">
           <div class="manifesto-icon">📊</div>
           <div class="manifesto-title" data-i18n="manifesto.m3.title">Метрики, не интуиция</div>
-          <p data-i18n="manifesto.m3.body">Оптимизирую то, что измеримо медленно. Профилирую перед тем, как трогать код. Решения по архитектуре принимаю на основе данных нагрузки, а не предположений.</p>
+          <p data-i18n="manifesto.m3.body">Оптимизирую то, что измеримо медленно. Профилирую перед тем, как трогать код.
+            Решения по архитектуре принимаю на основе данных нагрузки, а не предположений.</p>
         </div>
         <div class="manifesto-card reveal" style="--m-color: #ff4d6a;">
           <div class="manifesto-icon">🔄</div>
           <div class="manifesto-title" data-i18n="manifesto.m4.title">Код живёт после меня</div>
-          <p data-i18n="manifesto.m4.body">Пишу так, чтобы следующий разработчик понял без созвона. Документирую «почему», а не «что». Легаси появляется тогда, когда забываешь, что кто-то другой будет это поддерживать.</p>
+          <p data-i18n="manifesto.m4.body">Пишу так, чтобы следующий разработчик понял без созвона. Документирую
+            «почему», а не «что». Легаси появляется тогда, когда забываешь, что кто-то другой будет это поддерживать.
+          </p>
         </div>
         <div class="manifesto-card reveal" style="--m-color: #ffa940;">
           <div class="manifesto-icon">🔗</div>
           <div class="manifesto-title" data-i18n="manifesto.m5.title">Интеграции — это договоры</div>
-          <p data-i18n="manifesto.m5.body">Внешний API может упасть, изменить формат или начать тормозить. Проектирую интеграции с явными границами, таймаутами, retry-логикой и fallback-сценариями.</p>
+          <p data-i18n="manifesto.m5.body">Внешний API может упасть, изменить формат или начать тормозить. Проектирую
+            интеграции с явными границами, таймаутами, retry-логикой и fallback-сценариями.</p>
         </div>
         <div class="manifesto-card reveal" style="--m-color: #00ffb4;">
           <div class="manifesto-icon">🎯</div>
-          <div class="manifesto-title" data-i18n="manifesto.m6.title">Бизнес-результат важнее технического совершенства</div>
-          <p data-i18n="manifesto.m6.body">Идеальная архитектура, которая выйдет через три месяца вместо одного, часто хуже хорошего решения, которое работает прямо сейчас и может быть улучшено итерационно.</p>
+          <div class="manifesto-title" data-i18n="manifesto.m6.title">Бизнес-результат важнее технического совершенства
+          </div>
+          <p data-i18n="manifesto.m6.body">Идеальная архитектура, которая выйдет через три месяца вместо одного, часто
+            хуже хорошего решения, которое работает прямо сейчас и может быть улучшено итерационно.</p>
         </div>
       </div>
     </div>
@@ -750,7 +826,10 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p data-i18n="faq.q1.a">Да, и это значительная часть моей работы. Большинство реальных проектов — это не гринфилд, а системы с историей. Умею читать чужой код, находить архитектурные проблемы и проводить рефакторинг без нарушения бизнес-логики. Прежде чем что-то менять — разбираюсь, почему это написано именно так.</p>
+            <p data-i18n="faq.q1.a">Да, и это значительная часть моей работы. Большинство реальных проектов — это не
+              гринфилд, а системы с историей. Умею читать чужой код, находить архитектурные проблемы и проводить
+              рефакторинг без нарушения бизнес-логики. Прежде чем что-то менять — разбираюсь, почему это написано именно
+              так.</p>
           </div>
         </div>
 
@@ -760,7 +839,9 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p data-i18n="faq.q2.a">Могу работать как самостоятельно (полный цикл от архитектуры до production), так и встроиться в существующую команду. Имею опыт руководства командой разработчиков, code review и менторинга. Формат обсуждаем под задачу.</p>
+            <p data-i18n="faq.q2.a">Могу работать как самостоятельно (полный цикл от архитектуры до production), так и
+              встроиться в существующую команду. Имею опыт руководства командой разработчиков, code review и менторинга.
+              Формат обсуждаем под задачу.</p>
           </div>
         </div>
 
@@ -770,7 +851,9 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p data-i18n="faq.q3.a">Предпочитаю задачи, где есть архитектурная составляющая — интеграция, рефакторинг, построение новой функциональности. Разовые мелкие правки рассматриваю в контексте более длительного сотрудничества. Напишите — скажу честно, имеет ли смысл обсуждать.</p>
+            <p data-i18n="faq.q3.a">Предпочитаю задачи, где есть архитектурная составляющая — интеграция, рефакторинг,
+              построение новой функциональности. Разовые мелкие правки рассматриваю в контексте более длительного
+              сотрудничества. Напишите — скажу честно, имеет ли смысл обсуждать.</p>
           </div>
         </div>
 
@@ -780,7 +863,9 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p data-i18n="faq.q4.a">Да, подписываю NDA. Данные клиентов и детали проектов не разглашаю. Все кейсы на сайте — обезличены или описаны с разрешения. Работаю в рамках договора с чёткими обязательствами с обеих сторон.</p>
+            <p data-i18n="faq.q4.a">Да, подписываю NDA. Данные клиентов и детали проектов не разглашаю. Все кейсы на
+              сайте — обезличены или описаны с разрешения. Работаю в рамках договора с чёткими обязательствами с обеих
+              сторон.</p>
           </div>
         </div>
 
@@ -790,7 +875,9 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p data-i18n="faq.q5.a">Зависит от сложности и состояния документации. Для типичного Laravel или Bitrix-проекта — 2–5 рабочих дней, чтобы понять архитектуру и начать полезно работать. Помогает наличие README, схем БД и доступа к staging-окружению.</p>
+            <p data-i18n="faq.q5.a">Зависит от сложности и состояния документации. Для типичного Laravel или
+              Bitrix-проекта — 2–5 рабочих дней, чтобы понять архитектуру и начать полезно работать. Помогает наличие
+              README, схем БД и доступа к staging-окружению.</p>
           </div>
         </div>
 
@@ -800,7 +887,9 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p data-i18n="faq.q6.a">Преимущественно удалённо — это мой основной формат работы. Готов к гибриду при необходимости. По взаимодействию: предпочитаю асинхронную коммуникацию (Telegram, задачи в Jira/трекере) с синхронными созвонами по ключевым точкам. Не пропадаю, отвечаю в разумное время.</p>
+            <p data-i18n="faq.q6.a">Преимущественно удалённо — это мой основной формат работы. Готов к гибриду при
+              необходимости. По взаимодействию: предпочитаю асинхронную коммуникацию (Telegram, задачи в Jira/трекере) с
+              синхронными созвонами по ключевым точкам. Не пропадаю, отвечаю в разумное время.</p>
           </div>
         </div>
 
@@ -837,7 +926,8 @@
             <textarea class="form-textarea" placeholder="Опишите задачу — масштаб, стек, что сейчас не работает..."
               id="f-message" data-i18n="contact.task_placeholder"></textarea>
           </div>
-          <button type="submit" class="btn-primary" style="width:fit-content" data-i18n="contact.submit">→ Отправить</button>
+          <button type="submit" class="btn-primary" style="width:fit-content" data-i18n="contact.submit">→
+            Отправить</button>
           <div id="form-status"
             style="font-family:var(--mono);font-size:0.75rem;color:var(--neon);display:none;margin-top:0.5rem;"></div>
         </form>
@@ -852,9 +942,10 @@
       <div class="status-dot"></div>
       <span data-i18n="footer.status">Открыт к проектам</span>
     </div>
-    <div id="quote" class="footer-text"><span style="font-weight: bolder;font-size:1.5em">¹</span><span data-i18n="footer.quote">Спокойное море никогда не делало хорошего моряка (порт.)</span></div>
+    <div id="quote" class="footer-text"><span style="font-weight: bolder;font-size:1.5em">¹</span><span
+        data-i18n="footer.quote">Спокойное море никогда не делало хорошего моряка (порт.)</span></div>
   </footer>
-  
+
   <script src="assets/i18n.js"></script>
   <script>
     // Hamburger Menu
@@ -906,7 +997,7 @@
       const name = document.getElementById('f-name').value;
       const contact = document.getElementById('f-contact').value;
       const msg = document.getElementById('f-message').value;
-      
+
       const lang = localStorage.getItem('lang') || 'ru';
       const strings = translations[lang].contact;
 
