@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitrix24 On-Premise Business Processes & Customization | 1C-Bitrix Engineering | BX-ENGINEERING</title>
+  <meta name="description" content="Self-hosted Bitrix24 on-premise portal customization, automated business process activities, custom smart processes, and REST triggers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto+Slab:wght@400;500;600;700;800&subset=cyrillic,cyrillic-ext,latin,latin-ext&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><link rel="modulepreload" as="script" href="https://taustyle.ru/build/assets/site-CXoXlzHd.js" /><link rel="stylesheet" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><script type="module" src="https://taustyle.ru/build/assets/site-CXoXlzHd.js"></script>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <!-- Header Navigation -->
+  <header class="topbar" id="siteTopbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <a href="https://taustyle.ru/en" class="brand" aria-label="BX-ENGINEERING Home">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title-row">
+              <span class="brand-name">BX-ENGINEERING</span>
+              <span class="specialist-status-pill" title="Guaranteed senior SLA response &lt; 15 min">
+                <span class="pulse-dot"></span>
+                <span class="status-pill-text">SOLO SPECIALIST</span>
+              </span>
+            </div>
+            <span class="brand-sub">1C-BITRIX ARCHITECTURE &amp; RESCUE</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav-links" id="mainNav" aria-label="Main Navigation">
+        
+          <a href="https://taustyle.ru/en#rescue-console" class="nav-item" data-section="rescue-console">
+            <span class="nav-item-text">Diagnostics</span>
+          </a>
+          <a href="https://taustyle.ru/en#services" class="nav-item" data-section="services">
+            <span class="nav-item-text">Services</span>
+          </a>
+          <a href="/en/about" class="nav-item " data-nav="about">
+            <span class="nav-item-text">About / CV</span>
+            <span class="nav-badge-pill">20+ yrs</span>
+          </a>
+          <a href="https://taustyle.ru/en#comparison" class="nav-item" data-section="comparison">
+            <span class="nav-item-text">Why Me</span>
+          </a>
+          <a href="https://taustyle.ru/en#workflow" class="nav-item" data-section="workflow">
+            <span class="nav-item-text">Process</span>
+          </a>
+          <div class="mobile-nav-cta">
+            <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn mobile-tg-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+              </svg>
+              <span>Telegram: <strong>@taustyle</strong></span>
+            </a>
+            <div class="mobile-lang-row">
+              <span class="mobile-lang-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>LOCALE / LANGUAGE</span>
+              </span>
+              <div class="lang-switcher" role="group" aria-label="Language Selector">
+                
+                  <a href="/services/bitrix24-automation" class="lang-btn " aria-current="false">
+                    RU
+                  </a>
+                
+                  <a href="/en/services/bitrix24-automation" class="lang-btn active" aria-current="page">
+                    EN
+                  </a>
+                
+              </div>
+            </div>
+            <a href="https://taustyle.ru/en#audit-form" class="btn btn-primary btn-block">Express Audit</a>
+          </div>
+        
+      </nav>
+
+      <div class="topbar-actions">
+        <!-- Telegram Quick Contact (Desktop Only) -->
+        <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn desktop-only" title="Direct Telegram chat with Senior Engineer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+          </svg>
+          <span class="nav-tg-label">@taustyle</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Service Page Hero with Telemetry Header & Commercial Metrics -->
+<section class="service-hero">
+  <div class="container">
+    <div class="service-hero-inner">
+      <div class="service-hero-header">
+        <a href="/en#services" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          All Engineering Services
+        </a>
+
+        <div class="status-chip">
+          <span class="chip-code">[SERVICE_SPEC: D7_CORE]</span>
+          <span class="chip-label">DIRECT SENIOR EXECUTION</span>
+        </div>
+      </div>
+
+      <div class="service-hero-main">
+        <div class="service-hero-copy">
+          <h1 class="hero-title">Bitrix24 On-Premise Business Processes & Customization | 1C-Bitrix Engineering</h1>
+          
+          <p class="hero-subtitle">Self-hosted Bitrix24 on-premise portal customization, automated business process activities, custom smart processes, and REST triggers.</p>
+          
+        </div>
+
+        
+        <div class="service-commercial-panel">
+          <div class="commercial-header">
+            <span class="com-badge">COMMERCIAL SPECIFICATION</span>
+            <span class="com-status text-emerald">DIRECT ENGAGEMENT</span>
+          </div>
+
+          <div class="commercial-metrics">
+            
+            <div class="com-metric">
+              <span class="com-label">Pricing</span>
+              <span class="com-val text-amber">from 150 000 ₽</span>
+              
+              <span class="com-note">Custom business logic // Full source code ownership</span>
+              
+            </div>
+            
+
+            
+            <div class="com-metric">
+              <span class="com-label">Execution Timeline</span>
+              <span class="com-val text-cyan">5-12 Business Days</span>
+              <span class="com-note">Strict SLA / Milestones</span>
+            </div>
+            
+          </div>
+
+          <div class="commercial-cta">
+            <a href="#audit-form" class="btn btn-primary btn-block">Inquire for this Service</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="workflow-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">[BITRIX24 CAPABILITIES]</span>
+        <h2>On-Premise Engineering Scope</h2>
+      </div>
+      <div class="workflow-steps">
+        <div class="step-card">
+          <div class="step-number text-cyan">BP</div>
+          <h3>PHP BP Activities</h3>
+          <p>Custom Business Process designer activities (`CBPActivity`) executing custom PHP logic, database queries, and external API requests.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">SPA</div>
+          <h3>Smart Process Entities</h3>
+          <p>Configure custom Bitrix24 Smart Processes with automated stage triggers, custom fields, and document generation.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">CRM</div>
+          <h3>CRM Customization</h3>
+          <p>Custom deal card tabs, automated invoice generation, lead distribution algorithms, and custom event handlers.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">Cloud&rarr;Host</div>
+          <h3>Cloud to Self-Hosted Migration</h3>
+          <p>Safely migrate your organization's Bitrix24 Cloud portal to a dedicated self-hosted server with full PHP code access.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="audit-section" id="audit-form">
+    <div class="container">
+      <div class="audit-wrapper">
+        <div class="audit-info">
+          <span class="section-tag">[BITRIX24 INQUIRY]</span>
+          <h2>Automate Your Bitrix24 Portal</h2>
+          <p>Describe your required business process workflows or customization requirements for a direct engineering consultation.</p>
+        </div>
+        <div class="audit-form-card">
+          <form id="expressAuditForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <div class="form-group">
+              <label for="websiteUrl">Portal Domain / Address *</label>
+              <input type="url" id="websiteUrl" placeholder="https://b24.company.com" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName">Your Name *</label>
+                <input type="text" id="contactName" placeholder="Alex" required>
+              </div>
+              <div class="form-group">
+                <label for="contactPhone">Telegram / Phone / Email *</label>
+                <input type="text" id="contactPhone" placeholder="@telegram or phone" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="issueDetails">Business Process / Customization Details</label>
+              <textarea id="issueDetails" rows="3" placeholder="Describe the approval flow, CRM customization, or custom PHP activity needed..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+              Request Bitrix24 Estimate
+            </button>
+            <div class="form-status" id="formStatus"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name text-cyan">BX-ENGINEERING</span>
+        <span class="footer-copy">
+          
+            &copy; 2026 Independent Senior 1C-Bitrix Specialist &amp; Fullstack Architect. <a href="/en/about" class="footer-link">About / CV</a>
+          
+        </span>
+      </div>
+
+
+      <div class="footer-specs">
+        <span>
+          
+            STRICT D7 ORM // LARAVEL OCTANE // WEBSOCKETS // 20+ YEARS EXP
+          
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Console Locale Switcher (Desktop Bottom-Left) -->
+  <aside class="floating-locale-dock desktop-only" role="group" aria-label="Language Selector">
+    <div class="floating-locale-inner">
+      <span class="locale-globe-icon" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </span>
+      <div class="lang-switcher">
+        
+          <a href="/services/bitrix24-automation" class="lang-btn " aria-current="false" title="Переключить на русский язык">
+            RU
+          </a>
+        
+          <a href="/en/services/bitrix24-automation" class="lang-btn active" aria-current="page" title="Switch to English">
+            EN
+          </a>
+        
+      </div>
+    </div>
+  </aside>
+
+  <!-- Dynamic Floating Express Audit Campaign Dock -->
+  <aside class="floating-campaign-dock" id="floatingAuditDock" aria-label="Express Site Audit">
+    <div class="campaign-card" id="campaignCard">
+      <div class="campaign-header">
+        <div class="campaign-chip">
+          <span class="pulse-dot"></span>
+          <span class="campaign-chip-text">FREE AUDIT // 2 SLOTS AVAILABLE</span>
+        </div>
+        <button class="campaign-close-btn" id="closeCampaignBtn" aria-label="Minimize widget" title="Minimize widget">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="campaign-body">
+        <div class="campaign-info">
+          <h4 class="campaign-title">
+            Express Bitrix Audit
+          </h4>
+          <p class="campaign-desc">
+            Direct senior teardown of D7 architecture, slow SQL queries, and performance bottlenecks in 4 hours.
+          </p>
+        </div>
+        <div class="campaign-action-row">
+          <a href="https://taustyle.ru/en#audit-form" class="btn btn-primary campaign-cta-btn" id="floatingAuditBtn">
+            <span>Launch Audit</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <span class="campaign-meta-note">By Senior Lead · Zero Account Managers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimized Pill Trigger (re-opens widget) -->
+    <button class="campaign-min-pill" id="reopenCampaignBtn" aria-label="Open express audit" style="display: none;">
+      <span class="pulse-dot"></span>
+      <span class="min-pill-text">⚡ Express Audit (Free)</span>
+    </button>
+  </aside>
+</body>
+</html>

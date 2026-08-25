@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BX-ENGINEERING | Инженерная разработка и спасение сайтов на 1С-Битрикс</title>
+  <meta name="description" content="Профессиональная бэкенд-разработка 1С-Битрикс, кастомные модули на D7, High-Load оптимизация, надежный обмен с 1С и технический перехват проектов сеньором.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto+Slab:wght@400;500;600;700;800&subset=cyrillic,cyrillic-ext,latin,latin-ext&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><link rel="modulepreload" as="script" href="https://taustyle.ru/build/assets/site-CXoXlzHd.js" /><link rel="stylesheet" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><script type="module" src="https://taustyle.ru/build/assets/site-CXoXlzHd.js"></script>
+<script id="browser-logger-active">
+(function() {
+    const ENDPOINT = 'https://taustyle.ru/_boost/browser-logs';
+    const logQueue = [];
+    let flushTimeout = null;
+    const captureTypes = ["error","warning","info","log","debug","table"];
+
+    console.log('🔍 Browser logger active (MCP server detected). Posting to: ' + ENDPOINT);
+
+    // Store original console methods
+    const originalConsole = {
+        log: console.log,
+        debug: console.debug,
+        info: console.info,
+        error: console.error,
+        warn: console.warn,
+        table: console.table
+    };
+
+    // Helper to safely stringify values
+    function safeStringify(obj) {
+        const seen = new WeakSet();
+        return JSON.stringify(obj, (key, value) => {
+            if (typeof value === 'object' && value !== null) {
+                if (seen.has(value)) return '[Circular]';
+                seen.add(value);
+            }
+            if (value instanceof Error) {
+                return {
+                    name: value.name,
+                    message: value.message,
+                    stack: value.stack
+                };
+            }
+            return value;
+        });
+    }
+
+    // Normalize log type for consistency (e.g., 'warn' to 'warning')
+    function normalizeType(type) {
+        return type === 'warn' ? 'warning' : type;
+    }
+
+    // Determine if a log type should be captured based on configured levels
+    function shouldCapture(type) {
+        return captureTypes.includes(normalizeType(type));
+    }
+
+    // Batch and send logs
+    function flushLogs() {
+        if (logQueue.length === 0) return;
+
+        const batch = logQueue.splice(0, logQueue.length);
+
+        fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ logs: batch })
+        }).catch(err => {
+            // Silently fail to avoid infinite loops
+            originalConsole.error('Failed to send logs:', err);
+        });
+    }
+
+    // Debounced flush (100ms)
+    function scheduleFlush() {
+        if (flushTimeout) clearTimeout(flushTimeout);
+        flushTimeout = setTimeout(flushLogs, 100);
+    }
+
+    // Intercept console methods
+    ['log', 'debug', 'info', 'error', 'warn', 'table'].forEach(method => {
+        console[method] = function(...args) {
+            // Call original method
+            originalConsole[method].apply(console, args);
+
+            // Capture log data
+            try {
+                if (!shouldCapture(method)) {
+                    return;
+                }
+
+                logQueue.push({
+                    type: method,
+                    timestamp: new Date().toISOString(),
+                    data: args.map(arg => {
+                        try {
+                            return typeof arg === 'object' ? JSON.parse(safeStringify(arg)) : arg;
+                        } catch (e) {
+                            return String(arg);
+                        }
+                    }),
+                    url: window.location.href,
+                    userAgent: navigator.userAgent
+                });
+
+                scheduleFlush();
+            } catch (e) {
+                // Fail silently
+            }
+        };
+    });
+
+    // Global error handlers for uncaught errors
+    const originalOnError = window.onerror;
+    window.onerror = function boostErrorHandler(errorMsg, url, lineNumber, colNumber, error) {
+        try {
+            if (shouldCapture('error')) {
+                logQueue.push({
+                    type: 'uncaught_error',
+                    timestamp: new Date().toISOString(),
+                    data: [{
+                        message: errorMsg,
+                        filename: url,
+                        lineno: lineNumber,
+                        colno: colNumber,
+                        error: error ? {
+                            name: error.name,
+                            message: error.message,
+                            stack: error.stack
+                        } : null
+                    }],
+                    url: window.location.href,
+                    userAgent: navigator.userAgent
+                });
+
+                scheduleFlush();
+            }
+
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Call original handler if it exists
+        if (originalOnError && typeof originalOnError === 'function') {
+            return originalOnError(errorMsg, url, lineNumber, colNumber, error);
+        }
+
+        // Let the error continue to propagate
+        return false;
+    }
+    window.addEventListener('error', (event) => {
+        try {
+            if (!shouldCapture('error')) {
+                return false;
+            }
+
+            logQueue.push({
+                type: 'window_error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: event.message,
+                    filename: event.filename,
+                    lineno: event.lineno,
+                    colno: event.colno,
+                    error: event.error ? {
+                        name: event.error.name,
+                        message: event.error.message,
+                        stack: event.error.stack
+                    } : null
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the error continue to propagate
+        return false;
+    });
+    window.addEventListener('unhandledrejection', (event) => {
+        try {
+            if (!shouldCapture('error')) {
+                return false;
+            }
+
+            logQueue.push({
+                type: 'error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: 'Unhandled Promise Rejection',
+                    reason: event.reason instanceof Error ? {
+                        name: event.reason.name,
+                        message: event.reason.message,
+                        stack: event.reason.stack
+                    } : event.reason
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the rejection continue to propagate
+        return false;
+    });
+
+    // Flush on page unload
+    window.addEventListener('beforeunload', () => {
+        if (logQueue.length > 0) {
+            navigator.sendBeacon(ENDPOINT, JSON.stringify({ logs: logQueue }));
+        }
+    });
+})();
+</script>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <!-- Header Navigation -->
+  <header class="topbar" id="siteTopbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <a href="https://taustyle.ru" class="brand" aria-label="BX-ENGINEERING Home">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title-row">
+              <span class="brand-name">BX-ENGINEERING</span>
+              <span class="specialist-status-pill" title="Гарантированная прямая реакция сеньора &lt; 15 мин">
+                <span class="pulse-dot"></span>
+                <span class="status-pill-text">СЕНЬОР-СПЕЦИАЛИСТ</span>
+              </span>
+            </div>
+            <span class="brand-sub">АРХИТЕКТУРА &amp; СПАСЕНИЕ 1С-БИТРИКС</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav-links" id="mainNav" aria-label="Главная навигация">
+        
+          <a href="https://taustyle.ru#rescue-console" class="nav-item" data-section="rescue-console">
+            <span class="nav-item-text">Диагностика</span>
+          </a>
+          <a href="https://taustyle.ru#services" class="nav-item" data-section="services">
+            <span class="nav-item-text">Услуги</span>
+          </a>
+          <a href="/about" class="nav-item " data-nav="about">
+            <span class="nav-item-text">Обо мне / CV</span>
+            <span class="nav-badge-pill">20+ лет</span>
+          </a>
+          <a href="https://taustyle.ru#comparison" class="nav-item" data-section="comparison">
+            <span class="nav-item-text">Преимущества</span>
+          </a>
+          <a href="https://taustyle.ru#workflow" class="nav-item" data-section="workflow">
+            <span class="nav-item-text">Процесс</span>
+          </a>
+          <div class="mobile-nav-cta">
+            <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn mobile-tg-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+              </svg>
+              <span>Telegram: <strong>@taustyle</strong></span>
+            </a>
+            <div class="mobile-lang-row">
+              <span class="mobile-lang-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>ЯЗЫК / LOCALE</span>
+              </span>
+              <div class="lang-switcher" role="group" aria-label="Language Selector">
+                
+              </div>
+            </div>
+            <a href="https://taustyle.ru#audit-form" class="btn btn-primary btn-block">Экспресс-аудит</a>
+          </div>
+        
+      </nav>
+
+      <div class="topbar-actions">
+        <!-- Telegram Quick Contact (Desktop Only) -->
+        <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn desktop-only" title="Прямой чат в Telegram с сеньором">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+          </svg>
+          <span class="nav-tg-label">@taustyle</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <p>404 Page not found.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name text-cyan">BX-ENGINEERING</span>
+        <span class="footer-copy">
+          
+            &copy; 2026 Независимый сеньор-специалист 1С-Битрикс &amp; Fullstack Архитектор. <a href="/about" class="footer-link">Обо мне / Резюме</a>
+          
+        </span>
+      </div>
+
+
+      <div class="footer-specs">
+        <span>
+          
+            СТРОГИЙ D7 ORM // LARAVEL OCTANE // WEBSOCKETS // 20+ ЛЕТ ОПЫТА
+          
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Console Locale Switcher (Desktop Bottom-Left) -->
+  <aside class="floating-locale-dock desktop-only" role="group" aria-label="Language Selector">
+    <div class="floating-locale-inner">
+      <span class="locale-globe-icon" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </span>
+      <div class="lang-switcher">
+        
+      </div>
+    </div>
+  </aside>
+
+  <!-- Dynamic Floating Express Audit Campaign Dock -->
+  <aside class="floating-campaign-dock" id="floatingAuditDock" aria-label="Экспресс-аудит сайта">
+    <div class="campaign-card" id="campaignCard">
+      <div class="campaign-header">
+        <div class="campaign-chip">
+          <span class="pulse-dot"></span>
+          <span class="campaign-chip-text">АУДИТ 0 ₽ // СЛОТЫ: 2 НА ЭТОЙ НЕДЕЛЕ</span>
+        </div>
+        <button class="campaign-close-btn" id="closeCampaignBtn" aria-label="Свернуть виджет" title="Свернуть виджет">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="campaign-body">
+        <div class="campaign-info">
+          <h4 class="campaign-title">
+            Экспресс-аудит Битрикс
+          </h4>
+          <p class="campaign-desc">
+            Анализ архитектуры D7, тяжелых запросов MySQL и поиск утечек производительности за 4 часа.
+          </p>
+        </div>
+        <div class="campaign-action-row">
+          <a href="https://taustyle.ru#audit-form" class="btn btn-primary campaign-cta-btn" id="floatingAuditBtn">
+            <span>Запустить аудит</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <span class="campaign-meta-note">Лично от сеньора · Без менеджеров</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimized Pill Trigger (re-opens widget) -->
+    <button class="campaign-min-pill" id="reopenCampaignBtn" aria-label="Развернуть экспресс-аудит" style="display: none;">
+      <span class="pulse-dot"></span>
+      <span class="min-pill-text">⚡ Экспресс-аудит (0 ₽)</span>
+    </button>
+  </aside>
+</body>
+</html>

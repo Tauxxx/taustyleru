@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Checkout & Payment Gateway Integration | 1C-Bitrix Engineering | BX-ENGINEERING</title>
+  <meta name="description" content="Custom Bitrix.Sale checkout flows, multi-payment gateway handlers, 54-FZ online fiscalization, and real-time delivery calculation engines.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto+Slab:wght@400;500;600;700;800&subset=cyrillic,cyrillic-ext,latin,latin-ext&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><link rel="modulepreload" as="script" href="https://taustyle.ru/build/assets/site-CXoXlzHd.js" /><link rel="stylesheet" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><script type="module" src="https://taustyle.ru/build/assets/site-CXoXlzHd.js"></script>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <!-- Header Navigation -->
+  <header class="topbar" id="siteTopbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <a href="https://taustyle.ru/en" class="brand" aria-label="BX-ENGINEERING Home">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title-row">
+              <span class="brand-name">BX-ENGINEERING</span>
+              <span class="specialist-status-pill" title="Guaranteed senior SLA response &lt; 15 min">
+                <span class="pulse-dot"></span>
+                <span class="status-pill-text">SOLO SPECIALIST</span>
+              </span>
+            </div>
+            <span class="brand-sub">1C-BITRIX ARCHITECTURE &amp; RESCUE</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav-links" id="mainNav" aria-label="Main Navigation">
+        
+          <a href="https://taustyle.ru/en#rescue-console" class="nav-item" data-section="rescue-console">
+            <span class="nav-item-text">Diagnostics</span>
+          </a>
+          <a href="https://taustyle.ru/en#services" class="nav-item" data-section="services">
+            <span class="nav-item-text">Services</span>
+          </a>
+          <a href="/en/about" class="nav-item " data-nav="about">
+            <span class="nav-item-text">About / CV</span>
+            <span class="nav-badge-pill">20+ yrs</span>
+          </a>
+          <a href="https://taustyle.ru/en#comparison" class="nav-item" data-section="comparison">
+            <span class="nav-item-text">Why Me</span>
+          </a>
+          <a href="https://taustyle.ru/en#workflow" class="nav-item" data-section="workflow">
+            <span class="nav-item-text">Process</span>
+          </a>
+          <div class="mobile-nav-cta">
+            <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn mobile-tg-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+              </svg>
+              <span>Telegram: <strong>@taustyle</strong></span>
+            </a>
+            <div class="mobile-lang-row">
+              <span class="mobile-lang-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>LOCALE / LANGUAGE</span>
+              </span>
+              <div class="lang-switcher" role="group" aria-label="Language Selector">
+                
+                  <a href="/services/ecommerce-checkout" class="lang-btn " aria-current="false">
+                    RU
+                  </a>
+                
+                  <a href="/en/services/ecommerce-checkout" class="lang-btn active" aria-current="page">
+                    EN
+                  </a>
+                
+              </div>
+            </div>
+            <a href="https://taustyle.ru/en#audit-form" class="btn btn-primary btn-block">Express Audit</a>
+          </div>
+        
+      </nav>
+
+      <div class="topbar-actions">
+        <!-- Telegram Quick Contact (Desktop Only) -->
+        <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn desktop-only" title="Direct Telegram chat with Senior Engineer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+          </svg>
+          <span class="nav-tg-label">@taustyle</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Service Page Hero with Telemetry Header & Commercial Metrics -->
+<section class="service-hero">
+  <div class="container">
+    <div class="service-hero-inner">
+      <div class="service-hero-header">
+        <a href="/en#services" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          All Engineering Services
+        </a>
+
+        <div class="status-chip">
+          <span class="chip-code">[SERVICE_SPEC: D7_CORE]</span>
+          <span class="chip-label">DIRECT SENIOR EXECUTION</span>
+        </div>
+      </div>
+
+      <div class="service-hero-main">
+        <div class="service-hero-copy">
+          <h1 class="hero-title">Custom Checkout & Payment Gateway Integration | 1C-Bitrix Engineering</h1>
+          
+          <p class="hero-subtitle">Custom Bitrix.Sale checkout flows, multi-payment gateway handlers, 54-FZ online fiscalization, and real-time delivery calculation engines.</p>
+          
+        </div>
+
+        
+        <div class="service-commercial-panel">
+          <div class="commercial-header">
+            <span class="com-badge">COMMERCIAL SPECIFICATION</span>
+            <span class="com-status text-emerald">DIRECT ENGAGEMENT</span>
+          </div>
+
+          <div class="commercial-metrics">
+            
+            <div class="com-metric">
+              <span class="com-label">Pricing</span>
+              <span class="com-val text-amber">from 130 000 ₽</span>
+              
+              <span class="com-note">Conversion-optimized checkout // Zero lost orders</span>
+              
+            </div>
+            
+
+            
+            <div class="com-metric">
+              <span class="com-label">Execution Timeline</span>
+              <span class="com-val text-cyan">4-8 Business Days</span>
+              <span class="com-note">Strict SLA / Milestones</span>
+            </div>
+            
+          </div>
+
+          <div class="commercial-cta">
+            <a href="#audit-form" class="btn btn-primary btn-block">Inquire for this Service</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="workflow-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">[CHECKOUT CAPABILITIES]</span>
+        <h2>Bitrix.Sale Engineering Features</h2>
+      </div>
+      <div class="workflow-steps">
+        <div class="step-card">
+          <div class="step-number text-cyan">1-Step</div>
+          <h3>Custom AJAX Checkout</h3>
+          <p>Streamlined single-page checkout replacing heavy default Bitrix components with fast lightweight AJAX validation.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">Pay</div>
+          <h3>Custom Payment Handlers</h3>
+          <p>Develop native D7 Pay System Handlers (`Bitrix\Sale\PaySystem\BaseServerHandler`) for banks, acquiring, and installment services.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">Delivery</div>
+          <h3>CDEK / Boxberry / Logistics</h3>
+          <p>Integrate interactive pickup point maps (PVZ), automated shipping cost calculators, and barcoded order label generation.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">54-FZ</div>
+          <h3>Fiscal Receipts &amp; Loyalty</h3>
+          <p>Automated online fiscal receipt generation (Atol, Orange Data, Yookassa) and custom bonus point deduction engines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="audit-section" id="audit-form">
+    <div class="container">
+      <div class="audit-wrapper">
+        <div class="audit-info">
+          <span class="section-tag">[CHECKOUT INQUIRY]</span>
+          <h2>Optimize Your Bitrix Store Checkout</h2>
+          <p>Share your store link and required payment/delivery features for an engineering proposal.</p>
+        </div>
+        <div class="audit-form-card">
+          <form id="expressAuditForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <div class="form-group">
+              <label for="websiteUrl">Website URL / Domain *</label>
+              <input type="url" id="websiteUrl" placeholder="https://your-bitrix-store.com" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName">Your Name *</label>
+                <input type="text" id="contactName" placeholder="Alex" required>
+              </div>
+              <div class="form-group">
+                <label for="contactPhone">Telegram / Phone / Email *</label>
+                <input type="text" id="contactPhone" placeholder="@telegram or phone" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+              Request Checkout Optimization
+            </button>
+            <div class="form-status" id="formStatus"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name text-cyan">BX-ENGINEERING</span>
+        <span class="footer-copy">
+          
+            &copy; 2026 Independent Senior 1C-Bitrix Specialist &amp; Fullstack Architect. <a href="/en/about" class="footer-link">About / CV</a>
+          
+        </span>
+      </div>
+
+
+      <div class="footer-specs">
+        <span>
+          
+            STRICT D7 ORM // LARAVEL OCTANE // WEBSOCKETS // 20+ YEARS EXP
+          
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Console Locale Switcher (Desktop Bottom-Left) -->
+  <aside class="floating-locale-dock desktop-only" role="group" aria-label="Language Selector">
+    <div class="floating-locale-inner">
+      <span class="locale-globe-icon" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </span>
+      <div class="lang-switcher">
+        
+          <a href="/services/ecommerce-checkout" class="lang-btn " aria-current="false" title="Переключить на русский язык">
+            RU
+          </a>
+        
+          <a href="/en/services/ecommerce-checkout" class="lang-btn active" aria-current="page" title="Switch to English">
+            EN
+          </a>
+        
+      </div>
+    </div>
+  </aside>
+
+  <!-- Dynamic Floating Express Audit Campaign Dock -->
+  <aside class="floating-campaign-dock" id="floatingAuditDock" aria-label="Express Site Audit">
+    <div class="campaign-card" id="campaignCard">
+      <div class="campaign-header">
+        <div class="campaign-chip">
+          <span class="pulse-dot"></span>
+          <span class="campaign-chip-text">FREE AUDIT // 2 SLOTS AVAILABLE</span>
+        </div>
+        <button class="campaign-close-btn" id="closeCampaignBtn" aria-label="Minimize widget" title="Minimize widget">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="campaign-body">
+        <div class="campaign-info">
+          <h4 class="campaign-title">
+            Express Bitrix Audit
+          </h4>
+          <p class="campaign-desc">
+            Direct senior teardown of D7 architecture, slow SQL queries, and performance bottlenecks in 4 hours.
+          </p>
+        </div>
+        <div class="campaign-action-row">
+          <a href="https://taustyle.ru/en#audit-form" class="btn btn-primary campaign-cta-btn" id="floatingAuditBtn">
+            <span>Launch Audit</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <span class="campaign-meta-note">By Senior Lead · Zero Account Managers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimized Pill Trigger (re-opens widget) -->
+    <button class="campaign-min-pill" id="reopenCampaignBtn" aria-label="Open express audit" style="display: none;">
+      <span class="pulse-dot"></span>
+      <span class="min-pill-text">⚡ Express Audit (Free)</span>
+    </button>
+  </aside>
+</body>
+</html>

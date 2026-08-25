@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Technical Rescue & Refactoring | BX-ENGINEERING</title>
+  <meta name="description" content="Audit and refactoring of messy legacy Bitrix codebases, unoptimized init.php overrides, broken component templates, and security vulnerabilities.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto+Slab:wght@400;500;600;700;800&subset=cyrillic,cyrillic-ext,latin,latin-ext&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><link rel="modulepreload" as="script" href="https://taustyle.ru/build/assets/site-CXoXlzHd.js" /><link rel="stylesheet" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><script type="module" src="https://taustyle.ru/build/assets/site-CXoXlzHd.js"></script>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <!-- Header Navigation -->
+  <header class="topbar" id="siteTopbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <a href="https://taustyle.ru/en" class="brand" aria-label="BX-ENGINEERING Home">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title-row">
+              <span class="brand-name">BX-ENGINEERING</span>
+              <span class="specialist-status-pill" title="Guaranteed senior SLA response &lt; 15 min">
+                <span class="pulse-dot"></span>
+                <span class="status-pill-text">SOLO SPECIALIST</span>
+              </span>
+            </div>
+            <span class="brand-sub">1C-BITRIX ARCHITECTURE &amp; RESCUE</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav-links" id="mainNav" aria-label="Main Navigation">
+        
+          <a href="https://taustyle.ru/en#rescue-console" class="nav-item" data-section="rescue-console">
+            <span class="nav-item-text">Diagnostics</span>
+          </a>
+          <a href="https://taustyle.ru/en#services" class="nav-item" data-section="services">
+            <span class="nav-item-text">Services</span>
+          </a>
+          <a href="/en/about" class="nav-item " data-nav="about">
+            <span class="nav-item-text">About / CV</span>
+            <span class="nav-badge-pill">20+ yrs</span>
+          </a>
+          <a href="https://taustyle.ru/en#comparison" class="nav-item" data-section="comparison">
+            <span class="nav-item-text">Why Me</span>
+          </a>
+          <a href="https://taustyle.ru/en#workflow" class="nav-item" data-section="workflow">
+            <span class="nav-item-text">Process</span>
+          </a>
+          <div class="mobile-nav-cta">
+            <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn mobile-tg-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+              </svg>
+              <span>Telegram: <strong>@taustyle</strong></span>
+            </a>
+            <div class="mobile-lang-row">
+              <span class="mobile-lang-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>LOCALE / LANGUAGE</span>
+              </span>
+              <div class="lang-switcher" role="group" aria-label="Language Selector">
+                
+                  <a href="/services/rescue-refactoring" class="lang-btn " aria-current="false">
+                    RU
+                  </a>
+                
+                  <a href="/en/services/rescue-refactoring" class="lang-btn active" aria-current="page">
+                    EN
+                  </a>
+                
+              </div>
+            </div>
+            <a href="https://taustyle.ru/en#audit-form" class="btn btn-primary btn-block">Express Audit</a>
+          </div>
+        
+      </nav>
+
+      <div class="topbar-actions">
+        <!-- Telegram Quick Contact (Desktop Only) -->
+        <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn desktop-only" title="Direct Telegram chat with Senior Engineer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+          </svg>
+          <span class="nav-tg-label">@taustyle</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Service Page Hero with Telemetry Header & Commercial Metrics -->
+<section class="service-hero">
+  <div class="container">
+    <div class="service-hero-inner">
+      <div class="service-hero-header">
+        <a href="/en#services" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          All Engineering Services
+        </a>
+
+        <div class="status-chip">
+          <span class="chip-code">[SERVICE_SPEC: D7_CORE]</span>
+          <span class="chip-label">DIRECT SENIOR EXECUTION</span>
+        </div>
+      </div>
+
+      <div class="service-hero-main">
+        <div class="service-hero-copy">
+          <h1 class="hero-title">Website Technical Rescue & Refactoring</h1>
+          
+          <p class="hero-subtitle">Audit and refactoring of messy legacy Bitrix codebases, unoptimized init.php overrides, broken component templates, and security vulnerabilities.</p>
+          
+        </div>
+
+        
+        <div class="service-commercial-panel">
+          <div class="commercial-header">
+            <span class="com-badge">COMMERCIAL SPECIFICATION</span>
+            <span class="com-status text-emerald">DIRECT ENGAGEMENT</span>
+          </div>
+
+          <div class="commercial-metrics">
+            
+            <div class="com-metric">
+              <span class="com-label">Pricing</span>
+              <span class="com-val text-amber">from 160 000 ₽</span>
+              
+              <span class="com-note">Fixed scope guarantee // NDA & contract protected</span>
+              
+            </div>
+            
+
+            
+            <div class="com-metric">
+              <span class="com-label">Execution Timeline</span>
+              <span class="com-val text-cyan">3-7 Business Days</span>
+              <span class="com-note">Strict SLA / Milestones</span>
+            </div>
+            
+          </div>
+
+          <div class="commercial-cta">
+            <a href="#audit-form" class="btn btn-primary btn-block">Inquire for this Service</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem & Solution Overview -->
+  <section class="workflow-section">
+    <div class="container">
+      <div class="services-grid services-grid-two">
+        <div class="service-card" style="border-color: rgba(255, 95, 86, 0.3);">
+          <div class="service-code text-amber">[COMMON AGENCY SINS]</div>
+          <h3>What Messy Bitrix Code Looks Like</h3>
+          <ul class="service-specs" style="border: none;">
+            <li>Massive 2,000-line init.php files bloated with global functions</li>
+            <li>Raw SQL queries bypassing Bitrix security layers</li>
+            <li>Modified core files (`/bitrix/modules/`) breaking system updates</li>
+            <li>Unindexed database queries causing site locks on peak traffic</li>
+            <li>Hidden backdoor vulnerabilities left by unvetted freelancers</li>
+          </ul>
+        </div>
+
+        <div class="service-card" style="border-color: rgba(0, 229, 255, 0.4);">
+          <div class="service-code text-cyan">[MY REMEDIATION APPROACH]</div>
+          <h3>How I Restore Engineering Health</h3>
+          <ul class="service-specs" style="border: none;">
+            <li>Migrate legacy procedural calls to isolated Bitrix D7 ORM classes</li>
+            <li>Extract init.php spaghetti into custom update-safe local modules</li>
+            <li>Isolate custom components in `/local/components/`</li>
+            <li>Audit MySQL execution plans &amp; add missing database indexes</li>
+            <li>Complete security scan &amp; malware backdoor elimination</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Standard Comparison -->
+  <section class="comparison-section" id="code-sample">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">[CODE QUALITY STANDARDS]</span>
+        <h2>Legacy Mess vs. D7 Architecture</h2>
+        <p class="section-lead">Clean, maintainable PHP 8.1+ code written according to official Bitrix standards.</p>
+      </div>
+
+      <div class="services-grid services-grid-two">
+        <div class="service-card" style="background: #090D13;">
+          <div class="service-code" style="color: #FF5F56;">❌ Legacy Procedural Spaghetti (Before)</div>
+          <pre style="font-family: var(--font-mono); font-size: 0.78rem; color: #8A99AD; overflow-x: auto; padding: 12px; background: #070A0E; border-radius: 6px;"><code>// Messy init.php global function
+function getBadCatalogItems($IBLOCK_ID) {
+  global $DB;
+  // Raw SQL vulnerability + no caching
+  $res = $DB-&gt;Query("SELECT * FROM b_iblock_element WHERE IBLOCK_ID=".$IBLOCK_ID);
+  while($row = $res-&gt;Fetch()) {
+    $arResult[] = $row;
+  }
+  return $arResult;
+}</code></pre>
+        </div>
+
+        <div class="service-card" style="background: #090D13; border-color: var(--cyan-primary);">
+          <div class="service-code text-cyan">✓ Clean D7 ORM Standard (After)</div>
+          <pre style="font-family: var(--font-mono); font-size: 0.78rem; color: #00E5FF; overflow-x: auto; padding: 12px; background: #070A0E; border-radius: 6px;"><code>namespace Local\Catalog;
+use Bitrix\Iblock\ElementTable;
+
+class ServiceManager {
+  public static function getActiveItems(int $iblockId): array {
+    return ElementTable::getList([
+      'select' =&gt; ['ID', 'NAME', 'CODE'],
+      'filter' =&gt; ['=IBLOCK_ID' =&gt; $iblockId, '=ACTIVE' =&gt; 'Y'],
+      'cache'  =&gt; ['ttl' =&gt; 3600]
+    ])-&gt;fetchAll();
+  }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deliverables -->
+  <section class="workflow-section" id="deliverables">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">[WHAT YOU RECEIVE]</span>
+        <h2>Rescue Deliverables &amp; Guarantees</h2>
+      </div>
+
+      <div class="workflow-steps">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3>Full Codebase Audit Report</h3>
+          <p>Detailed architectural review pinpointing exact vulnerabilities, slow queries, and core modifications.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3>Clean Git Repository</h3>
+          <p>Version-controlled codebase with clean history, structured in modern `/local/` directory layout.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3>Update Safety Certificate</h3>
+          <p>Restored Bitrix core integrity ensuring future official Bitrix system updates run seamlessly without site breaks.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <h3>Direct Ongoing SLA Access</h3>
+          <p>Direct contact with me for continuous technical assistance and zero-middleman bug fixes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audit Request Form -->
+  <section class="audit-section" id="audit-form">
+    <div class="container">
+      <div class="audit-wrapper">
+        <div class="audit-info">
+          <span class="section-tag">[DIRECT AUDIT INQUIRY]</span>
+          <h2>Get Your Bitrix Codebase Rescued</h2>
+          <p>Submit your website domain. I will personally review your codebase, run an initial security and performance diagnostic, and contact you directly within 4 hours.</p>
+        </div>
+
+        <div class="audit-form-card">
+          <form id="expressAuditForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <div class="form-group">
+              <label for="websiteUrl">Website URL / Domain *</label>
+              <input type="url" id="websiteUrl" placeholder="https://your-bitrix-site.com" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName">Your Name *</label>
+                <input type="text" id="contactName" placeholder="Alex" required>
+              </div>
+              <div class="form-group">
+                <label for="contactPhone">Telegram / Phone / Email *</label>
+                <input type="text" id="contactPhone" placeholder="@telegram or phone" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="issueDetails">Describe Current Issues / Legacy Code Frustrations</label>
+              <textarea id="issueDetails" rows="3" placeholder="Tell me what broken updates, errors, or slow speeds your previous developer left behind..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+              Request Technical Rescue Audit
+            </button>
+            <div class="form-status" id="formStatus"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name text-cyan">BX-ENGINEERING</span>
+        <span class="footer-copy">
+          
+            &copy; 2026 Independent Senior 1C-Bitrix Specialist &amp; Fullstack Architect. <a href="/en/about" class="footer-link">About / CV</a>
+          
+        </span>
+      </div>
+
+
+      <div class="footer-specs">
+        <span>
+          
+            STRICT D7 ORM // LARAVEL OCTANE // WEBSOCKETS // 20+ YEARS EXP
+          
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Console Locale Switcher (Desktop Bottom-Left) -->
+  <aside class="floating-locale-dock desktop-only" role="group" aria-label="Language Selector">
+    <div class="floating-locale-inner">
+      <span class="locale-globe-icon" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </span>
+      <div class="lang-switcher">
+        
+          <a href="/services/rescue-refactoring" class="lang-btn " aria-current="false" title="Переключить на русский язык">
+            RU
+          </a>
+        
+          <a href="/en/services/rescue-refactoring" class="lang-btn active" aria-current="page" title="Switch to English">
+            EN
+          </a>
+        
+      </div>
+    </div>
+  </aside>
+
+  <!-- Dynamic Floating Express Audit Campaign Dock -->
+  <aside class="floating-campaign-dock" id="floatingAuditDock" aria-label="Express Site Audit">
+    <div class="campaign-card" id="campaignCard">
+      <div class="campaign-header">
+        <div class="campaign-chip">
+          <span class="pulse-dot"></span>
+          <span class="campaign-chip-text">FREE AUDIT // 2 SLOTS AVAILABLE</span>
+        </div>
+        <button class="campaign-close-btn" id="closeCampaignBtn" aria-label="Minimize widget" title="Minimize widget">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="campaign-body">
+        <div class="campaign-info">
+          <h4 class="campaign-title">
+            Express Bitrix Audit
+          </h4>
+          <p class="campaign-desc">
+            Direct senior teardown of D7 architecture, slow SQL queries, and performance bottlenecks in 4 hours.
+          </p>
+        </div>
+        <div class="campaign-action-row">
+          <a href="https://taustyle.ru/en#audit-form" class="btn btn-primary campaign-cta-btn" id="floatingAuditBtn">
+            <span>Launch Audit</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <span class="campaign-meta-note">By Senior Lead · Zero Account Managers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimized Pill Trigger (re-opens widget) -->
+    <button class="campaign-min-pill" id="reopenCampaignBtn" aria-label="Open express audit" style="display: none;">
+      <span class="pulse-dot"></span>
+      <span class="min-pill-text">⚡ Express Audit (Free)</span>
+    </button>
+  </aside>
+</body>
+</html>

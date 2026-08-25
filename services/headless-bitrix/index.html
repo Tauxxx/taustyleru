@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Headless Битрикс и архитектура REST & GraphQL API | BX-ENGINEERING</title>
+  <meta name="description" content="Использование 1С-Битрикс как мощного Headless CMS бэкенда для приложений на React, Vue, Next.js и мобильных клиентов на iOS / Android.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto+Slab:wght@400;500;600;700;800&subset=cyrillic,cyrillic-ext,latin,latin-ext&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><link rel="modulepreload" as="script" href="https://taustyle.ru/build/assets/site-CXoXlzHd.js" /><link rel="stylesheet" href="https://taustyle.ru/build/assets/site-n04aN2bl.css" /><script type="module" src="https://taustyle.ru/build/assets/site-CXoXlzHd.js"></script>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <!-- Header Navigation -->
+  <header class="topbar" id="siteTopbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <a href="https://taustyle.ru" class="brand" aria-label="BX-ENGINEERING Home">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title-row">
+              <span class="brand-name">BX-ENGINEERING</span>
+              <span class="specialist-status-pill" title="Гарантированная прямая реакция сеньора &lt; 15 мин">
+                <span class="pulse-dot"></span>
+                <span class="status-pill-text">СЕНЬОР-СПЕЦИАЛИСТ</span>
+              </span>
+            </div>
+            <span class="brand-sub">АРХИТЕКТУРА &amp; СПАСЕНИЕ 1С-БИТРИКС</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav-links" id="mainNav" aria-label="Главная навигация">
+        
+          <a href="https://taustyle.ru#rescue-console" class="nav-item" data-section="rescue-console">
+            <span class="nav-item-text">Диагностика</span>
+          </a>
+          <a href="https://taustyle.ru#services" class="nav-item" data-section="services">
+            <span class="nav-item-text">Услуги</span>
+          </a>
+          <a href="/about" class="nav-item " data-nav="about">
+            <span class="nav-item-text">Обо мне / CV</span>
+            <span class="nav-badge-pill">20+ лет</span>
+          </a>
+          <a href="https://taustyle.ru#comparison" class="nav-item" data-section="comparison">
+            <span class="nav-item-text">Преимущества</span>
+          </a>
+          <a href="https://taustyle.ru#workflow" class="nav-item" data-section="workflow">
+            <span class="nav-item-text">Процесс</span>
+          </a>
+          <div class="mobile-nav-cta">
+            <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn mobile-tg-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+              </svg>
+              <span>Telegram: <strong>@taustyle</strong></span>
+            </a>
+            <div class="mobile-lang-row">
+              <span class="mobile-lang-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>ЯЗЫК / LOCALE</span>
+              </span>
+              <div class="lang-switcher" role="group" aria-label="Language Selector">
+                
+                  <a href="/services/headless-bitrix" class="lang-btn active" aria-current="page">
+                    RU
+                  </a>
+                
+                  <a href="/en/services/headless-bitrix" class="lang-btn " aria-current="false">
+                    EN
+                  </a>
+                
+              </div>
+            </div>
+            <a href="https://taustyle.ru#audit-form" class="btn btn-primary btn-block">Экспресс-аудит</a>
+          </div>
+        
+      </nav>
+
+      <div class="topbar-actions">
+        <!-- Telegram Quick Contact (Desktop Only) -->
+        <a href="https://t.me/taustyle" target="_blank" rel="noopener noreferrer" class="nav-tg-btn desktop-only" title="Прямой чат в Telegram с сеньором">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+          </svg>
+          <span class="nav-tg-label">@taustyle</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Service Page Hero with Telemetry Header & Commercial Metrics -->
+<section class="service-hero">
+  <div class="container">
+    <div class="service-hero-inner">
+      <div class="service-hero-header">
+        <a href="/#services" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Все инженерные услуги
+        </a>
+
+        <div class="status-chip">
+          <span class="chip-code">[СПЕЦИФИКАЦИЯ: ЯДРО D7]</span>
+          <span class="chip-label">ПРЯМАЯ РАБОТА С СЕНЬОРОМ</span>
+        </div>
+      </div>
+
+      <div class="service-hero-main">
+        <div class="service-hero-copy">
+          <h1 class="hero-title">Headless Битрикс и архитектура REST & GraphQL API</h1>
+          
+          <p class="hero-subtitle">Использование 1С-Битрикс как мощного Headless CMS бэкенда для приложений на React, Vue, Next.js и мобильных клиентов на iOS / Android.</p>
+          
+        </div>
+
+        
+        <div class="service-commercial-panel">
+          <div class="commercial-header">
+            <span class="com-badge">КОММЕРЧЕСКИЕ УСЛОВИЯ</span>
+            <span class="com-status text-emerald">ПРЯМОЙ ДОГОВОР И NDA</span>
+          </div>
+
+          <div class="commercial-metrics">
+            
+            <div class="com-metric">
+              <span class="com-label">Стоимость</span>
+              <span class="com-val text-amber">от 180 000 ₽</span>
+              
+              <span class="com-note">Сверхбыстрый API-бэкенд // Готовность к мобильным приложениям</span>
+              
+            </div>
+            
+
+            
+            <div class="com-metric">
+              <span class="com-label">Сроки реализации</span>
+              <span class="com-val text-cyan">7–14 рабочих дней</span>
+              <span class="com-note">Строгий SLA / Этапы</span>
+            </div>
+            
+          </div>
+
+          <div class="commercial-cta">
+            <a href="#audit-form" class="btn btn-primary btn-block">Заказать эту услугу</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="workflow-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">[ВОЗМОЖНОСТИ HEADLESS]</span>
+        <h2>Архитектурный стек Headless API</h2>
+      </div>
+      <div class="workflow-steps">
+        <div class="step-card">
+          <div class="step-number text-cyan">REST</div>
+          <h3>Контроллеры REST API</h3>
+          <p>Кастомные контроллеры на базе `Bitrix\Main\Engine\Controller` с чистым JSON-выводом каталога, корзины и профиля пользователя.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">JWT</div>
+          <h3>Авторизация по JWT и OAuth</h3>
+          <p>Безопасная токенная авторизация для мобильных приложений и SPA без передачи сессионных кук браузера.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">GraphQL</div>
+          <h3>Схемы GraphQL</h3>
+          <p>Гибкие GraphQL-запросы, позволяющие фронтенд-клиентам запрашивать только нужные поля сущностей, снижая трафик.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number text-cyan">Next.js</div>
+          <h3>Синхронизация с фронтендом</h3>
+          <p>Мгновенная инвалидация и перегенерация статических страниц Next.js / Nuxt по вебхукам при изменении контента в Битрикс.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="audit-section" id="audit-form">
+    <div class="container">
+      <div class="audit-wrapper">
+        <div class="audit-info">
+          <span class="section-tag">[ЗАЯВКА НА HEADLESS API]</span>
+          <h2>Спроектируйте Headless API на Битрикс</h2>
+          <p>Опишите стек вашего фронтенда (React, Next.js, мобильное приложение) для составления архитектурного плана API.</p>
+        </div>
+        <div class="audit-form-card">
+          <form id="expressAuditForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <div class="form-group">
+              <label for="websiteUrl">Адрес сайта / Проекта *</label>
+              <input type="url" id="websiteUrl" placeholder="https://vash-site.ru" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName">Ваше имя *</label>
+                <input type="text" id="contactName" placeholder="Алексей" required>
+              </div>
+              <div class="form-group">
+                <label for="contactPhone">Telegram / Телефон / Email *</label>
+                <input type="text" id="contactPhone" placeholder="@telegram или телефон" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+              Заказать расчет Headless API
+            </button>
+            <div class="form-status" id="formStatus"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name text-cyan">BX-ENGINEERING</span>
+        <span class="footer-copy">
+          
+            &copy; 2026 Независимый сеньор-специалист 1С-Битрикс &amp; Fullstack Архитектор. <a href="/about" class="footer-link">Обо мне / Резюме</a>
+          
+        </span>
+      </div>
+
+
+      <div class="footer-specs">
+        <span>
+          
+            СТРОГИЙ D7 ORM // LARAVEL OCTANE // WEBSOCKETS // 20+ ЛЕТ ОПЫТА
+          
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Console Locale Switcher (Desktop Bottom-Left) -->
+  <aside class="floating-locale-dock desktop-only" role="group" aria-label="Language Selector">
+    <div class="floating-locale-inner">
+      <span class="locale-globe-icon" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </span>
+      <div class="lang-switcher">
+        
+          <a href="/services/headless-bitrix" class="lang-btn active" aria-current="page" title="Переключить на русский язык">
+            RU
+          </a>
+        
+          <a href="/en/services/headless-bitrix" class="lang-btn " aria-current="false" title="Switch to English">
+            EN
+          </a>
+        
+      </div>
+    </div>
+  </aside>
+
+  <!-- Dynamic Floating Express Audit Campaign Dock -->
+  <aside class="floating-campaign-dock" id="floatingAuditDock" aria-label="Экспресс-аудит сайта">
+    <div class="campaign-card" id="campaignCard">
+      <div class="campaign-header">
+        <div class="campaign-chip">
+          <span class="pulse-dot"></span>
+          <span class="campaign-chip-text">АУДИТ 0 ₽ // СЛОТЫ: 2 НА ЭТОЙ НЕДЕЛЕ</span>
+        </div>
+        <button class="campaign-close-btn" id="closeCampaignBtn" aria-label="Свернуть виджет" title="Свернуть виджет">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="campaign-body">
+        <div class="campaign-info">
+          <h4 class="campaign-title">
+            Экспресс-аудит Битрикс
+          </h4>
+          <p class="campaign-desc">
+            Анализ архитектуры D7, тяжелых запросов MySQL и поиск утечек производительности за 4 часа.
+          </p>
+        </div>
+        <div class="campaign-action-row">
+          <a href="https://taustyle.ru#audit-form" class="btn btn-primary campaign-cta-btn" id="floatingAuditBtn">
+            <span>Запустить аудит</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <span class="campaign-meta-note">Лично от сеньора · Без менеджеров</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimized Pill Trigger (re-opens widget) -->
+    <button class="campaign-min-pill" id="reopenCampaignBtn" aria-label="Развернуть экспресс-аудит" style="display: none;">
+      <span class="pulse-dot"></span>
+      <span class="min-pill-text">⚡ Экспресс-аудит (0 ₽)</span>
+    </button>
+  </aside>
+</body>
+</html>
